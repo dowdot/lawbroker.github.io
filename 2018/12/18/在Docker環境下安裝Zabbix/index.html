@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -157,7 +157,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-在Docker環境下安裝Zabbix" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-在Docker環境下安裝Zabbix" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -182,31 +182,45 @@
 <p>但因為一開始裝到舊版docker的關係，小繞了個圈，所以還是先記起來。免得下次再踩坑!!</p>
 <p>一開始是使用yum install docker的方式將docker安裝起來，後來又安裝了docker compose，沒想到用docker-compose up -d 想將zabbix跑起來時一直發生錯誤。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">332c505442d8: Pull complete</span><br><span class="line">ef94d2ea987f: Pull complete</span><br><span class="line">Creating v349_zabbix-db_1 ... <span class="keyword">done</span></span><br><span class="line">Creating v349_zabbix-server_1 ... error</span><br><span class="line"></span><br><span class="line">ERROR: <span class="keyword">for</span> v349_zabbix-server_1  Cannot start service zabbix-server: b<span class="string">'Cannot link to a non running container: /v349_zabbix-db_1 AS /v349_zabbix-server_1/v349_zabbix-db_1'</span></span><br><span class="line"></span><br><span class="line">ERROR: <span class="keyword">for</span> zabbix-server  Cannot start service zabbix-server: b<span class="string">'Cannot link to a non running container: /v349_zabbix-db_1 AS /v349_zabbix-server_1/v349_zabbix-db_1'</span></span><br><span class="line">ERROR: Encountered errors <span class="keyword">while</span> bringing up the project.</span><br></pre></td></tr></table></figure>
+
 <a id="more"></a>
+
 <p>查了老半天，想不到是那裡出了問題。後來突然想到該不會是docker版本的問題吧?! 索性將舊版的docker移掉，重新安裝docker CE的版本。就可以跑了~~</p>
 <p>查了一下，果真是舊版本吶</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ rpm -qa |grep docker</span><br><span class="line">docker-common-1.13.1-88.git07f3374.el7.centos.x86_64</span><br><span class="line">docker-client-1.13.1-88.git07f3374.el7.centos.x86_64</span><br><span class="line">docker-1.13.1-88.git07f3374.el7.centos.x86_64</span><br></pre></td></tr></table></figure>
+
 <h1 id="移除舊的docker"><a href="#移除舊的docker" class="headerlink" title="移除舊的docker"></a>移除舊的docker</h1><p>把舊的都移掉吧~~</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum remove docker-*</span></span><br></pre></td></tr></table></figure>
+
 <p>安裝必要的套件:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ yum install -y yum-utils \</span><br><span class="line">  device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
+
 <p>新增 Docker 官方的 stable repo</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yum-config-manager \</span><br><span class="line">  --add-repo \</span><br><span class="line">  https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+
 <h1 id="安裝-Docker-CE"><a href="#安裝-Docker-CE" class="headerlink" title="安裝 Docker CE"></a>安裝 Docker CE</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install docker-ce</span><br></pre></td></tr></table></figure>
+
 <p>啟動Docker服務:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$systemctl</span> start docker</span><br></pre></td></tr></table></figure>
+
 <h1 id="安裝docker-compose"><a href="#安裝docker-compose" class="headerlink" title="安裝docker compose"></a>安裝docker compose</h1><p>可以先到<a href="https://github.com/docker/compose/releases" target="_blank" rel="noopener">Compose repository release page on GitHub</a>查看現在最新的版本(1.23.2)。<br>安裝:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$curl</span> -L <span class="string">"https://github.com/docker/compose/releases/download/1.23.2/docker-compose-<span class="variable">$(uname -s)</span>-<span class="variable">$(uname -m)</span>"</span> -o /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">$ chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
 <p>確認一下版本:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$docker</span>-compose --version</span><br></pre></td></tr></table></figure>
+
 <h1 id="下載docker版本的Zabbix"><a href="#下載docker版本的Zabbix" class="headerlink" title="下載docker版本的Zabbix"></a>下載docker版本的Zabbix</h1><p>我是在這裡下載安裝的 <a href="https://github.com/chusiang/zabbix.dockerize" target="_blank" rel="noopener">https://github.com/chusiang/zabbix.dockerize</a> 下載的，其實直接按照上面的步驟做就可以了!!</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$git</span> <span class="built_in">clone</span> https://github.com/chusiang/zabbix.dockerize.git</span><br><span class="line"><span class="variable">$cd</span> zabbix.dockerize</span><br></pre></td></tr></table></figure>
+
 <p>進入一個您想要安裝版本的目錄下:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$cd</span> v3.4.9</span><br></pre></td></tr></table></figure>
+
 <p>用docker-compose 跑起來就可以了</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$docker</span>-compose up -d</span><br></pre></td></tr></table></figure>
+
 <p>其它相關的指令:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Check containers process.</span></span><br><span class="line">$ docker-compose ps</span><br><span class="line"><span class="comment"># Remove the containers.</span></span><br><span class="line">$ docker-compose stop</span><br><span class="line">$ docker-compose rm -f</span><br></pre></td></tr></table></figure>
+
 <h1 id="連線Zabbix"><a href="#連線Zabbix" class="headerlink" title="連線Zabbix"></a>連線Zabbix</h1><p>安裝好的Zabbix的port是8080，所以用 <a href="http://xxx.xxx.xxx.xxx:8080" target="_blank" rel="noopener">http://xxx.xxx.xxx.xxx:8080</a>就可以看到登入頁了，預設的帳號/密碼 是 Admin　和 zabbix。</p>
 <h1 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h1><p>其實在docker跑zabbix並不是很難，主要還是對於docker的環境不熟，所以花了一點時間。也因為對docker架構不熟的關係，日後要做更進階的微調可能要花一點點時間。</p>
 <p>再努力!!</p>
@@ -475,6 +489,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系統架構</a>
               </li>
              
@@ -515,11 +537,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -528,14 +550,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -563,7 +577,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

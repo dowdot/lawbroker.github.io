@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -157,7 +157,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Redis查詢Filebeat Output的資料" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-Redis查詢Filebeat Output的資料" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -179,11 +179,14 @@
       
         <p><img src="/images/2018/12/20181212_RedisFilebeat.png" alt="Alt Filebeat"></p>
 <p>初次接觸Redis，對Redis的操作完全陌生，最近研究的Lab中ELK架構下的Filebeat是將output指向到Redis資料庫。<br>因此相當好奇，Redis到底有沒有接收到資料，接收到的資料又是長什麼樣子。<br>用MySQL這類的關連式資料庫習慣了，也有很多Client連線軟體可以用。沒想到初步好像不太容易爬到Redis的client，就算有好像也都要$~~<br>所以先redis-cli指令慢慢探究Redis的面紗吧!!</p>
-<h1 id="key的數據結構"><a href="#key的數據結構" class="headerlink" title="key的數據結構"></a>key的數據結構</h1><p>因為Redis是用key <-> value的型式在儲存資料，所以首先先用 redis-cli 指令取得資料庫裡存有那些key</-></p>
+<h1 id="key的數據結構"><a href="#key的數據結構" class="headerlink" title="key的數據結構"></a>key的數據結構</h1><p>因為Redis是用key &lt;-&gt; value的型式在儲存資料，所以首先先用 redis-cli 指令取得資料庫裡存有那些key</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@ELK ~]<span class="comment"># redis-cli</span></span><br><span class="line">127.0.0.1:6379&gt; keys *</span><br><span class="line">1) <span class="string">"mylist"</span></span><br><span class="line">2) <span class="string">"myset:__rand_int__"</span></span><br><span class="line">3) <span class="string">"key:__rand_int__"</span></span><br><span class="line">4) <span class="string">"counter:__rand_int__"</span></span><br><span class="line">5) <span class="string">"filebeat"</span></span><br></pre></td></tr></table></figure>
+
 <a id="more"></a>
+
 <p>其中第五個key: filebeat應該就是我們想要進一步查詢的，所以當我們好奇用 get filebeat想要了解更詳細的資料時，卻會得到以下的錯誤訊息。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; get filebeat</span><br><span class="line">(error) WRONGTYPE Operation against a key holding the wrong kind of value</span><br></pre></td></tr></table></figure>
+
 <p>查了一下才了解，在Redis的世界有下列五種數據結構，每一種數據結構都有不同的指令去讀取相關的資料。</p>
 <ul>
 <li>String: 字符串</li>
@@ -194,6 +197,7 @@
 </ul>
 <p>所以我們針對filebeat這個key確認一下數據結構的型態</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; <span class="built_in">type</span> filebeat</span><br><span class="line">list</span><br></pre></td></tr></table></figure>
+
 <p>系統回覆我們的是List的型態，所以上網再查詢一番後，整理幾個可能常用的指令如下：</p>
 <table>
 <thead>
@@ -203,8 +207,7 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>1</td>
 <td>BLPOP key1 [key2 ] timeout</td>
 <td>移出並獲取列表的第一個元素， 如果列表沒有元素會阻塞列表直到等待超時或發現可彈出元素為止。</td>
@@ -289,12 +292,18 @@
 <td>RPUSHX key value</td>
 <td>為已存在的列表添加值</td>
 </tr>
-</tbody>
-</table>
-<h1 id="查詢資料筆數"><a href="#查詢資料筆數" class="headerlink" title="查詢資料筆數"></a>查詢資料筆數</h1><p>所以我們可以用 LLEN filebeat 指令查出屬於 filebeat 這個Key有44筆資料!!</p>
+<tr>
+<td># 查詢資料筆數</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>所以我們可以用 LLEN filebeat 指令查出屬於 filebeat 這個Key有44筆資料!!</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@ELK ~]<span class="comment"># redis-cli</span></span><br><span class="line">127.0.0.1:6379&gt; LLEN filebeat</span><br><span class="line">(<span class="built_in">integer</span>) 44</span><br></pre></td></tr></table></figure>
+
 <p>當然，可以用 LINDEX filebeat 1(index) 或 LINDEX filebeat 1 44 的方式來查詢更詳細的內容~~</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lindex filebeat 1</span><br><span class="line"><span class="string">"&#123;\"@timestamp\":\"2018-12-11T09:10:56.918Z\",\"@metadata\":&#123;\"beat\":\"filebeat\",\"type\":\"doc\",\"version\":\"6.5.2\"&#125;,\"source\":\"/var/log/yum.log\",\"offset\":73,\"message\":\"Dec 07 14:39:51 Updated: 7:device-mapper-1.02.149-10.el7_6.2.x86_64\",\"prospector\":&#123;\"type\":\"log\"&#125;,\"input\":&#123;\"type\":\"log\"&#125;,\"beat\":&#123;\"hostname\":\"ELK.localdomain\",\"version\":\"6.5.2\",\"name\":\"ELK.localdomain\"&#125;,\"host\":&#123;\"name\":\"ELK.localdomain\",\"architecture\":\"x86_64\",\"os\":&#123;\"platform\":\"centos\",\"version\":\"7 (Core)\",\"family\":\"redhat\",\"codename\":\"Core\"&#125;,\"id\":\"48876c3212b14008a12413296f888c5b\",\"containerized\":true&#125;&#125;"</span></span><br></pre></td></tr></table></figure>
+
 <p>很好，看起來filebeat有順利的依據filebeat.yml中所設定的input來源(yum.log)寫入redis裡呢!!</p>
 <h1 id="即時監看"><a href="#即時監看" class="headerlink" title="即時監看"></a>即時監看</h1><p>(感謝同事提供的方式)<br>除了用上述的方法可以查到歷史的資料之外，直接用redis-cli monitor這個指令也可以觀看即時的寫入狀態</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@ELK <span class="built_in">log</span>]<span class="comment"># redis-cli monitor</span></span><br><span class="line">OK</span><br><span class="line">1544583616.168222 [0 127.0.0.1:49814] <span class="string">"RPUSH"</span> <span class="string">"filebeat"</span> <span class="string">"&#123;\"@timestamp\":\"2018-12-12T03:00:15.163Z\",\"@metadata\":&#123;\"beat\":\"filebeat\",\"type\":\"doc\",\"version\":\"6.5.2\"&#125;,\"source\":\"/var/log/secure\",\"prospector\":&#123;\"type\":\"log\"&#125;,\"input\":&#123;\"type\":\"log\"&#125;,\"beat\":&#123;\"name\":\"ELK.localdomain\",\"hostname\":\"ELK.localdomain\",\"version\":\"6.5.2\"&#125;,\"host\":&#123;\"architecture\":\"x86_64\",\"os\":&#123;\"platform\":\"centos\",\"version\":\"7 (Core)\",\"family\":\"redhat\",\"codename\":\"Core\"&#125;,\"id\":\"48876c3212b14008a12413296f888c5b\",\"containerized\":true,\"name\":\"ELK.localdomain\"&#125;,\"offset\":5176,\"message\":\"Dec 12 11:00:12 ELK sshd[32733]: Accepted password for root from 192.97.140.104 port 5887 ssh2\"&#125;"</span> <span class="string">"&#123;\"@timestamp\":\"2018-12-12T03:00:15.165Z\",\"@metadata\":&#123;\"beat\":\"filebeat\",\"type\":\"doc\",\"version\":\"6.5.2\"&#125;,\"host\":&#123;\"architecture\":\"x86_64\",\"name\":\"ELK.localdomain\",\"os\":&#123;\"platform\":\"centos\",\"version\":\"7 (Core)\",\"family\":\"redhat\",\"codename\":\"Core\"&#125;,\"id\":\"48876c3212b14008a12413296f888c5b\",\"containerized\":true&#125;,\"source\":\"/var/log/secure\",\"offset\":5271,\"message\":\"Dec 12 11:00:12 ELK sshd[32733]: pam_unix(sshd:session): session opened for user root by (uid=0)\",\"prospector\":&#123;\"type\":\"log\"&#125;,\"input\":&#123;\"type\":\"log\"&#125;,\"beat\":&#123;\"hostname\":\"ELK.localdomain\",\"version\":\"6.5.2\",\"name\":\"ELK.localdomain\"&#125;&#125;"</span></span><br></pre></td></tr></table></figure>
@@ -553,6 +562,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系統架構</a>
               </li>
              
@@ -593,11 +610,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -606,14 +623,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -641,7 +650,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

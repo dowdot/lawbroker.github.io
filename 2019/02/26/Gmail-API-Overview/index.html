@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -160,7 +160,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Gmail-API-Overview" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-Gmail-API-Overview" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -193,6 +193,7 @@
 </ul>
 <p>其中 Messages and labels 是信箱的基本單位;而 Drafts(草稿)， history(歷史紀錄) 及 threads 都包含一個或多個額外的 metadata。</p>
 <a id="more"></a>
+
 <h3 id="Messages"><a href="#Messages" class="headerlink" title="Messages"></a>Messages</h3><p>就是一封郵件，Message 除了可以給定Label標籤之外，在API的操作中是不可改變改變信件內容的，只能被建立與刪除。</p>
 <h3 id="Labels"><a href="#Labels" class="headerlink" title="Labels"></a>Labels</h3><p>Labels 可作為分類和組織Message與threads的主要手段。<br>Labels與Message和Threads具有多對多的關係;一封信件(Message)可以被標記多個Labels，一個Label可以應用於多封信件(Messages)或Threads。 標籤還有兩種類型：系統和用戶。<br>另外Labels也有二種型態： system 和 user。</p>
 <p>System Labels: 這個Labels是在系統內建的，不能被建立、刪除和修改，例：收信匣、垃圾桶或垃圾信。不過，某些System Label（如INBOX）可以應用於信件(Messages)和Thread，也可以從信件(Messages)和Thread中刪除。</p>
@@ -236,8 +237,7 @@
 <th>限制</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><b>每日郵件數量</b><br>每日傳送限制*</td>
 <td>2,000 (試用版帳戶：500)</td>
 </tr>
@@ -269,8 +269,7 @@
 <td><b>每日非重複收件者人數</b><br>每日個別地址數量，每個地址只計一次 (舉例來說，如果有 5 封電子郵件傳送至 10 個地址，則計為 10 名非重複收件者)*</td>
 <td>3,000 (外部收件者人數：2,000； 試用版帳戶外部收件者人數：500)</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h2 id="API-使用限制"><a href="#API-使用限制" class="headerlink" title="API 使用限制"></a>API 使用限制</h2><p>Gmail的API在使用上實行配額制度的，每個帳號會給予固定的額度。依據API Method使用的不同，扣除可使用的額度。</p>
 <h3 id="API連線額度"><a href="#API連線額度" class="headerlink" title="API連線額度"></a>API連線額度</h3><p>除配給的額度之外，Gmail API給對於每日的連線及每秒的連線速率是有所限制的~~</p>
 <table>
@@ -280,8 +279,7 @@
 <th>Limit</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>Daily Usage</td>
 <td>1,000,000,000 quota units per day</td>
 </tr>
@@ -289,8 +287,7 @@
 <td>Per User Rate Limit</td>
 <td>250 quota units per user per second,  moving average (allows short bursts)</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h3 id="API-Method-耗用的額度"><a href="#API-Method-耗用的額度" class="headerlink" title="API Method 耗用的額度"></a>API Method 耗用的額度</h3><table>
 <thead>
 <tr>
@@ -298,13 +295,11 @@
 <th>Quota Units</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>message.send</td>
 <td>100</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h3 id="舉例"><a href="#舉例" class="headerlink" title="舉例:"></a>舉例:</h3><p>綜合以上的限制，每一個帳號每秒不能使用超過 250 quota units 的條件下，以寄信為例: 250/100 = 2.5 封／秒<br>但在此同時，上述的寄信行為仍不能超出G Suite每日所能寄送的數量限制。 </p>
 <h1 id="Google-對大量電子郵件傳送的建議作法與評估"><a href="#Google-對大量電子郵件傳送的建議作法與評估" class="headerlink" title="Google 對大量電子郵件傳送的建議作法與評估"></a>Google 對大量電子郵件傳送的建議作法與評估</h1><table>
 <thead>
@@ -313,8 +308,7 @@
 <th>可行性評估</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>將大量郵件分成兩天傳送</td>
 <td><b>不可行</b><br> 即時服務不適合丟入郵件佇列<br> 且程式得額外管理佇列，增加負擔</td>
 </tr>
@@ -334,14 +328,13 @@
 <td>透過本機伺服器接收郵件</td>
 <td><b>可行，但需設定並調校</b><br> 郵件伺服器支援 Multiple Domain<br> 但郵件伺服器與DNS必需對各大ISP郵件商進行最佳化(SPF)設定</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h1 id="其它可行性作法"><a href="#其它可行性作法" class="headerlink" title="其它可行性作法"></a>其它可行性作法</h1><h2 id="Google-APP-Engine"><a href="#Google-APP-Engine" class="headerlink" title="Google APP Engine"></a>Google APP Engine</h2><p>Google 的 App Engine 是Google針對不同的程式語言所提供的代管式平台，支援的語言有: Node.js、Java、Ruby、C#、Go、Python 及 PHP 。App Engine 對使用電子郵件的計費方式是「依照訊息數量」來計算，每個收件人收到的每封電子郵件都算一則訊息。舉例來說，把一封電子郵件寄給十位收件人，會算成十則訊息。</p>
 <p>雖然，App Engine 是依照訊息數量收費，但還是有API呼叫的上限:每日 7,000封。除此之外，程式的服務商必需將寄信程式及服務另外佈署在App Engine上。管理上較為麻煩!!</p>
 <p><img src="/images/2019/03/2019-03-06_GAE_limit.png" alt="Google APP Engine 限制說明"></p>
 <h2 id="第三方專屬SMTP服務"><a href="#第三方專屬SMTP服務" class="headerlink" title="第三方專屬SMTP服務"></a>第三方專屬SMTP服務</h2><p>直接尋找Google信賴的第三方專屬 Mail SMTP Relay Service，例如: Mailgun、SendGrid、Mailjet。</p>
 <p><img src="/images/2019/03/2019-03-06_GCE_mailgun.png" alt="使用Mailgun傳送電子郵件"></p>
-<p>就個人近年使用Google Compute Engine(GCE)的使用經驗，Google 是不允許使用25/465/587 連接端口的。甚至是Google的官方文件也是建議使用者使用與他們第三方合作夥伴的服務，而Mailgun除了提供完整的API、可查詢郵件記錄等多項功能外，也針對Google Cloud Platform 使用者提供每月傳送的前 30,000 封郵件免費的服務。(參考文件3,4)<br>似乎也是一種可行的方式~~~</p>
+<p>就個人近年使用Google Compute Engine(GCE)的使用經驗，Google 是不允許使用25/465/587 連接端口的。甚至是Google的官方文件也是建議使用者使用與他們第三方合作夥伴的服務，而Mailgun除了提供完整的API、可查詢郵件記錄等多項功能外，也針對Google Cloud Platform 使用者提供每月傳送的前 30,000 封郵件免費的服務。(參考文件3,4)<br>似乎也是一種可行的方式<del>~</del></p>
 <p><img src="/images/2019/03/2019-03-06_GCE_mailgun_free.png" alt="使用Mailgun傳送電子郵件"></p>
 <h1 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h1><ol>
 <li><a href="https://www.pipiscrew.com/2015/04/php-send-mail-through-gmail-api/" target="_blank" rel="noopener">send mail through Gmail API</a></li>
@@ -614,6 +607,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系統架構</a>
               </li>
              
@@ -654,11 +655,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -667,14 +668,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -702,7 +695,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="http://192.97.140.104">
   <title>Elasticsearch 安裝 | 豆豆的學習筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="因為工作上需要, 所以記錄一下!! 安裝 Java SDK確認JAVA版本查看系統當前的java版本： 1java -version 如果發現是老版本，可以進一步查詢系統已經安裝的JDK如果是舊的就先移除 1rpm -qa | grep -E &apos;^(java|jdk)&apos;">
+  <meta name="description" content="因為工作上需要, 所以記錄一下!! 安裝 Java SDK確認JAVA版本查看系統當前的java版本： 1java -version  如果發現是老版本，可以進一步查詢系統已經安裝的JDK如果是舊的就先移除 1rpm -qa | grep -E &apos;^(java|jdk)&apos;">
 <meta name="keywords" content="系統架構,Log">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Elasticsearch 安裝">
 <meta property="og:url" content="http://192.97.140.104/2018/12/07/Elasticsearch 安裝/index.html">
 <meta property="og:site_name" content="豆豆的學習筆記">
-<meta property="og:description" content="因為工作上需要, 所以記錄一下!! 安裝 Java SDK確認JAVA版本查看系統當前的java版本： 1java -version 如果發現是老版本，可以進一步查詢系統已經安裝的JDK如果是舊的就先移除 1rpm -qa | grep -E &apos;^(java|jdk)&apos;">
+<meta property="og:description" content="因為工作上需要, 所以記錄一下!! 安裝 Java SDK確認JAVA版本查看系統當前的java版本： 1java -version  如果發現是老版本，可以進一步查詢系統已經安裝的JDK如果是舊的就先移除 1rpm -qa | grep -E &apos;^(java|jdk)&apos;">
 <meta property="og:locale" content="zh-Hant-TW">
 <meta property="og:image" content="http://192.97.140.104/images/2018/12/20181207_Elasticsearch.png">
 <meta property="og:updated_time" content="2019-01-02T03:53:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Elasticsearch 安裝">
-<meta name="twitter:description" content="因為工作上需要, 所以記錄一下!! 安裝 Java SDK確認JAVA版本查看系統當前的java版本： 1java -version 如果發現是老版本，可以進一步查詢系統已經安裝的JDK如果是舊的就先移除 1rpm -qa | grep -E &apos;^(java|jdk)&apos;">
+<meta name="twitter:description" content="因為工作上需要, 所以記錄一下!! 安裝 Java SDK確認JAVA版本查看系統當前的java版本： 1java -version  如果發現是老版本，可以進一步查詢系統已經安裝的JDK如果是舊的就先移除 1rpm -qa | grep -E &apos;^(java|jdk)&apos;">
 <meta name="twitter:image" content="http://192.97.140.104/images/2018/12/20181207_Elasticsearch.png">
   
     <link rel="alternative" href="/atom.xml" title="豆豆的學習筆記" type="application/atom+xml">
@@ -157,7 +157,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Elasticsearch 安裝" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-Elasticsearch 安裝" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -181,31 +181,44 @@
 <p>因為工作上需要, 所以記錄一下!!</p>
 <h2 id="安裝-Java-SDK"><a href="#安裝-Java-SDK" class="headerlink" title="安裝 Java SDK"></a>安裝 Java SDK</h2><h3 id="確認JAVA版本"><a href="#確認JAVA版本" class="headerlink" title="確認JAVA版本"></a>確認JAVA版本</h3><p>查看系統當前的java版本：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
+
 <p>如果發現是老版本，可以進一步查詢系統已經安裝的JDK<br>如果是舊的就先移除</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa | grep -E <span class="string">'^(java|jdk)'</span></span><br></pre></td></tr></table></figure>
+
 <a id="more"></a>
+
 <h3 id="下載JDK"><a href="#下載JDK" class="headerlink" title="下載JDK"></a>下載JDK</h3><p>至<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">官網</a>下載 64位元的JDK<br>這邊要留意 JDK 的版本, 目前 Elasticsearch 6.X 版本，需要JDK 1.8 以上<br>下載之後進行安裝</p>
 <h3 id="安裝JDK"><a href="#安裝JDK" class="headerlink" title="安裝JDK"></a>安裝JDK</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ELK]<span class="comment"># rpm -ivh jdk-8u192-linux-x64.rpm</span></span><br></pre></td></tr></table></figure>
+
 <p>更多資訊: <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">SDK 下載</a></p>
-<h2 id="安裝-Elasticsearch"><a href="#安裝-Elasticsearch" class="headerlink" title="安裝 Elasticsearch"></a>安裝 Elasticsearch</h2><h3 id="前置準備-更新Linux下載源"><a href="#前置準備-更新Linux下載源" class="headerlink" title="前置準備 - 更新Linux下載源"></a>前置準備 - 更新Linux下載源</h3><p>在 /etc/yum.repos.d/新增一個 elasticsearch.repo 檔<br>並加入以下設定<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[elasticsearch-6.x]</span><br><span class="line">name=Elasticsearch repository <span class="keyword">for</span> 6.x packages</span><br><span class="line">baseurl=https://artifacts.elastic.co/packages/6.x/yum</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch</span><br><span class="line">enabled=1</span><br><span class="line">autorefresh=1</span><br><span class="line"><span class="built_in">type</span>=rpm-md</span><br></pre></td></tr></table></figure></p>
+<h2 id="安裝-Elasticsearch"><a href="#安裝-Elasticsearch" class="headerlink" title="安裝 Elasticsearch"></a>安裝 Elasticsearch</h2><h3 id="前置準備-更新Linux下載源"><a href="#前置準備-更新Linux下載源" class="headerlink" title="前置準備 - 更新Linux下載源"></a>前置準備 - 更新Linux下載源</h3><p>在 /etc/yum.repos.d/新增一個 elasticsearch.repo 檔<br>並加入以下設定</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[elasticsearch-6.x]</span><br><span class="line">name=Elasticsearch repository <span class="keyword">for</span> 6.x packages</span><br><span class="line">baseurl=https://artifacts.elastic.co/packages/6.x/yum</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch</span><br><span class="line">enabled=1</span><br><span class="line">autorefresh=1</span><br><span class="line"><span class="built_in">type</span>=rpm-md</span><br></pre></td></tr></table></figure>
+
 <h3 id="yum安裝"><a href="#yum安裝" class="headerlink" title="yum安裝"></a>yum安裝</h3><p>加好之後就用 yum 直接安裝</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ELK]<span class="comment"># yum install elasticsearch</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="服務啟動與確認"><a href="#服務啟動與確認" class="headerlink" title="服務啟動與確認"></a>服務啟動與確認</h3><p>如果安裝過程沒有意外，可以先啟動看看</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ELK]<span class="comment"># systemctl start elasticsearch.service</span></span><br></pre></td></tr></table></figure>
+
 <p>確認狀態,應該會得到類似以下第4行active 狀態與第15行的回應</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@ELK]<span class="comment"># systemctl status elasticsearch</span></span><br><span class="line">● elasticsearch.service - Elasticsearch</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/elasticsearch.service; disabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since Fri 2018-12-07 16:04:07 CST; 2 days ago</span><br><span class="line">     Docs: http://www.elastic.co</span><br><span class="line"> Main PID: 13469 (java)</span><br><span class="line">   CGroup: /system.slice/elasticsearch.service</span><br><span class="line">           ├─13469 /bin/java -Xms1g -Xmx1g -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+AlwaysPreTouch -Xss1m ...</span><br><span class="line">           └─13548 /usr/share/elasticsearch/modules/x-pack-ml/platform/linux-x86_64/bin/controller</span><br><span class="line"></span><br><span class="line">Dec 07 16:04:07 ELK.localdomain systemd[1]: Stopped Elasticsearch.</span><br><span class="line">Dec 07 16:04:07 ELK.localdomain systemd[1]: Started Elasticsearch.</span><br><span class="line"></span><br><span class="line">[root@ELK]<span class="comment"># curl "http://localhost:9200/_cat/nodes"</span></span><br><span class="line">localhost 10 51 0 0.00 0.01 0.05 mdi * MkpewMs</span><br></pre></td></tr></table></figure>
+
 <p>也可以用 <a href="http://localhost:9200/_cluster/health" target="_blank" rel="noopener">http://localhost:9200/_cluster/health</a> 取得運作資訊</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@ELK conf.d]<span class="comment"># curl http://localhost:9200/_cluster/health</span></span><br><span class="line">&#123;</span><br><span class="line">   <span class="string">"cluster_name"</span>:<span class="string">"elasticsearch"</span>,</span><br><span class="line">   <span class="string">"status"</span>:<span class="string">"yellow"</span>,</span><br><span class="line">   <span class="string">"timed_out"</span>:<span class="literal">false</span>,</span><br><span class="line">   <span class="string">"number_of_nodes"</span>:1,</span><br><span class="line">   <span class="string">"number_of_data_nodes"</span>:1,</span><br><span class="line">   <span class="string">"active_primary_shards"</span>:14,</span><br><span class="line">   <span class="string">"active_shards"</span>:14,</span><br><span class="line">   <span class="string">"relocating_shards"</span>:0,</span><br><span class="line">   <span class="string">"initializing_shards"</span>:0,</span><br><span class="line">   <span class="string">"unassigned_shards"</span>:10,</span><br><span class="line">   <span class="string">"delayed_unassigned_shards"</span>:0,</span><br><span class="line">   <span class="string">"number_of_pending_tasks"</span>:0,</span><br><span class="line">   <span class="string">"number_of_in_flight_fetch"</span>:0,</span><br><span class="line">   <span class="string">"task_max_waiting_in_queue_millis"</span>:0,</span><br><span class="line">   <span class="string">"active_shards_percent_as_number"</span>:58.333333333333336</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>因為我們目前只安裝一台，所以上述的status為yellow，表示資料完整，雖可運作但少了一份副本。如果Cluster機制運作正常，那應該就會顯示綠燈。<br>但萬一顯示為紅燈的話，那可能代表連API服務都無法正常運作。</p>
 <p>更多資訊: <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html" target="_blank" rel="noopener">Elasticsearch 官方安裝教學</a></p>
 <h2 id="Elasticsearch設定"><a href="#Elasticsearch設定" class="headerlink" title="Elasticsearch設定"></a>Elasticsearch設定</h2><p>Elasticsearch裝好後的設定目錄在/etc/elasticsearch/，主要的設定檔則是 elasticsearch.yml<br>初始裝好後會發現用本機用 curl “<a href="http://localhost:9200/_cat/nodes&quot;是有回應的，" target="_blank" rel="noopener">http://localhost:9200/_cat/nodes&quot;是有回應的，</a><br>但是 curl 對外的網址,例: curl “<a href="http://192.97.140.16:9200/_cat/nodes&quot;" target="_blank" rel="noopener">http://192.97.140.16:9200/_cat/nodes&quot;</a> 卻會得到<br>curl: (7) Failed connect to localhost:9200; Connection refused的回應</p>
 <p>這時要修改 elasticsearch.yml 裡 network.host　設定</p>
 <h3 id="elasticsearch-yml"><a href="#elasticsearch-yml" class="headerlink" title="elasticsearch.yml"></a>elasticsearch.yml</h3><p>將在elasticsearch.yrml裡將 network.host 改成主機對外提供服務的IP</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">network.host: 192.97.140.16</span><br></pre></td></tr></table></figure>
+
 <p>這樣在本機上詢問就會正常了</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@ELK]<span class="comment"># curl "http://192.97.140.16:9200/_cat/nodes"</span></span><br><span class="line">192.97.140.16 11 51 0 0.00 0.01 0.05 mdi * MkpewMs</span><br></pre></td></tr></table></figure>
+
 <h3 id="防火牆相關參數"><a href="#防火牆相關參數" class="headerlink" title="防火牆相關參數"></a>防火牆相關參數</h3><p>除了設定檔要改之外，防火牆相關的設定也要開，否則對外的電腦用瀏覽器也會問不到的</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --add-port=9200/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
 <h2 id="好站分享"><a href="#好站分享" class="headerlink" title="好站分享"></a>好站分享</h2><ul>
 <li><a href="https://blog.johnwu.cc/article/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-centos-red-hat.html" target="_blank" rel="noopener">ELK 教學 - 從無到有安裝 ELK (CentOS/Red Hat)</a></li>
 <li><a href="https://hk.saowen.com/a/5888bed02d3064b539f0b17529fe3ffb09659ebcbeb080e5d976d1a7a9617ee4" target="_blank" rel="noopener">CentOS 7 安裝Java 1.8</a></li>
@@ -462,6 +475,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系統架構</a>
               </li>
              
@@ -502,11 +523,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -515,14 +536,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -550,7 +563,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

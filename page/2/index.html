@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -152,7 +152,7 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Redis查詢Filebeat Output的資料" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-Redis查詢Filebeat Output的資料" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -174,7 +174,7 @@
       
         <p><img src="/images/2018/12/20181212_RedisFilebeat.png" alt="Alt Filebeat"></p>
 <p>初次接觸Redis，對Redis的操作完全陌生，最近研究的Lab中ELK架構下的Filebeat是將output指向到Redis資料庫。<br>因此相當好奇，Redis到底有沒有接收到資料，接收到的資料又是長什麼樣子。<br>用MySQL這類的關連式資料庫習慣了，也有很多Client連線軟體可以用。沒想到初步好像不太容易爬到Redis的client，就算有好像也都要$~~<br>所以先redis-cli指令慢慢探究Redis的面紗吧!!</p>
-<h1 id="key的數據結構"><a href="#key的數據結構" class="headerlink" title="key的數據結構"></a>key的數據結構</h1><p>因為Redis是用key <-> value的型式在儲存資料，所以首先先用 redis-cli 指令取得資料庫裡存有那些key</-></p>
+<h1 id="key的數據結構"><a href="#key的數據結構" class="headerlink" title="key的數據結構"></a>key的數據結構</h1><p>因為Redis是用key &lt;-&gt; value的型式在儲存資料，所以首先先用 redis-cli 指令取得資料庫裡存有那些key</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@ELK ~]<span class="comment"># redis-cli</span></span><br><span class="line">127.0.0.1:6379&gt; keys *</span><br><span class="line">1) <span class="string">"mylist"</span></span><br><span class="line">2) <span class="string">"myset:__rand_int__"</span></span><br><span class="line">3) <span class="string">"key:__rand_int__"</span></span><br><span class="line">4) <span class="string">"counter:__rand_int__"</span></span><br><span class="line">5) <span class="string">"filebeat"</span></span><br></pre></td></tr></table></figure>
         
           <a class="article-more-a" href="/2018/12/12/Redis查詢Filebeat Output的資料/#more">more >></a>
@@ -246,7 +246,7 @@
 
 
   
-    <article id="post-Filebeat安裝" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-Filebeat安裝" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -350,7 +350,7 @@
 
 
   
-    <article id="post-CentOS7安裝Redis" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-CentOS7安裝Redis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -372,7 +372,9 @@
       
         <p><img src="/images/2018/12/20181211_CentOS7Redis.png" alt="Alt Redis"></p>
 <h1 id="安裝-EPEL-Repo"><a href="#安裝-EPEL-Repo" class="headerlink" title="安裝 EPEL Repo"></a>安裝 EPEL Repo</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install epel-release</span><br></pre></td></tr></table></figure>
+
 <h1 id="安裝-Remi-Repo"><a href="#安裝-Remi-Repo" class="headerlink" title="安裝 Remi Repo"></a>安裝 Remi Repo</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm</span><br></pre></td></tr></table></figure>
+
 <h1 id="從-Remi-Repo-安裝-Redis"><a href="#從-Remi-Repo-安裝-Redis" class="headerlink" title="從 Remi Repo 安裝 Redis"></a>從 Remi Repo 安裝 Redis</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y --enablerepo=remi,remi-test install redis</span><br></pre></td></tr></table></figure>
         
           <a class="article-more-a" href="/2018/12/11/CentOS7安裝Redis/#more">more >></a>
@@ -448,7 +450,7 @@
 
 
   
-    <article id="post-putty-color-themes-改變Putty主題顏色" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-putty-color-themes-改變Putty主題顏色" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -541,7 +543,7 @@
 
 
   
-    <article id="post-Elasticsearch RPM 安裝的目錄結構" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-Elasticsearch RPM 安裝的目錄結構" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -572,8 +574,7 @@
 <th>Setting</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>home</td>
 <td>Elasticsearch home directory or  $ES_HOME</td>
 <td>/usr/share/elasticsearch</td>
@@ -621,8 +622,7 @@
 <td>Not configured</td>
 <td>path.repo</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>資料來源: <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html" target="_blank" rel="noopener">Directory layout of RPM</a></p>
 
       
@@ -692,7 +692,7 @@
 
 
   
-    <article id="post-Elasticsearch 安裝" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-Elasticsearch 安裝" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -716,6 +716,7 @@
 <p>因為工作上需要, 所以記錄一下!!</p>
 <h2 id="安裝-Java-SDK"><a href="#安裝-Java-SDK" class="headerlink" title="安裝 Java SDK"></a>安裝 Java SDK</h2><h3 id="確認JAVA版本"><a href="#確認JAVA版本" class="headerlink" title="確認JAVA版本"></a>確認JAVA版本</h3><p>查看系統當前的java版本：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
+
 <p>如果發現是老版本，可以進一步查詢系統已經安裝的JDK<br>如果是舊的就先移除</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa | grep -E <span class="string">'^(java|jdk)'</span></span><br></pre></td></tr></table></figure>
         
@@ -885,6 +886,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系統架構</a>
               </li>
              
@@ -925,11 +934,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -938,14 +947,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -973,7 +974,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -158,7 +158,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Docker上運行Laravel" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-Docker上運行Laravel" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -180,29 +180,39 @@
       
         <p>因為專案需要，想要有一個PHP + Laravel的測試開發環境~~但是懶惰一點不想大費週張一個一個套件安裝之外，又想接觸新的技術和架構，加上Container夯很多年了!!所以，沒有其它選擇了!!今天就試著在docker上面利用 Laradock 將PHP、nginx、mysql環境跑起來之後再安裝Laravel!!</p>
 <h1 id="安裝-Laradock"><a href="#安裝-Laradock" class="headerlink" title="安裝 Laradock"></a>安裝 Laradock</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /Docker</span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/laradock/laradock.git Laradock</span><br></pre></td></tr></table></figure>
+
 <h1 id="修改-env檔"><a href="#修改-env檔" class="headerlink" title="修改 .env檔"></a>修改 .env檔</h1><p>想要把網頁相關的專案都放在/WWW下，所以修改一下Laradock之下的.env檔，將程式的專案根目錄指向本機OS的/WWW</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> Laradock</span><br><span class="line">$ cp env-example .env</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#APP_CODE_PATH_HOST=../  #這是原始設定</span></span><br><span class="line">APP_CODE_PATH_HOST=/WWW/</span><br></pre></td></tr></table></figure>
+
 <p>這樣容器運行後,容器內部的 /var/www 會連結到外層OS的 /WWW</p>
 <a id="more"></a>
+
 <p><img src="/images/2018/12/20181225_laradock.png" alt="Alt Laradock"></p>
 <p>大約是如上的概念<br>就算那天容器壞掉了，Laravel專案裡的東西應該也還會在</p>
 <p>而MySQL的資料呢?<br>先查看 Laradock下的 docker-compose.yml對MySQL volumes的定義<br>可以看到是將本機中的${DATA_PATH_HOST}/mysql對映至容器裡的/var/lib/mysql<br>那 ${DATA_PATH_HOST}/mysql又是在那呢?</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">####### .env #######</span></span><br><span class="line"><span class="comment">### MySQL ################################################</span></span><br><span class="line">    mysql:</span><br><span class="line">      ... 略...</span><br><span class="line">      volumes:</span><br><span class="line">        - <span class="variable">$&#123;DATA_PATH_HOST&#125;</span>/mysql:/var/lib/mysql</span><br><span class="line">        - <span class="variable">$&#123;MYSQL_ENTRYPOINT_INITDB&#125;</span>:/docker-entrypoint-initdb.d</span><br></pre></td></tr></table></figure>
+
 <p>再查看了一下 Laradock下的.env檔，就可以發現 $DATA_PATH_HOST是指向 DATA_PATH_HOST=~/.laradock/data<br>如果我們沒有特別做調整的話，那就代表MySQL的Data Volume會是在 /root/.laradock/data/mysql 之中</p>
 <h1 id="啟動Laradock"><a href="#啟動Laradock" class="headerlink" title="啟動Laradock"></a>啟動Laradock</h1><p>把 Laradock容器跑起來,並進入容器</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d nginx mysql</span><br><span class="line">docker-compose <span class="built_in">exec</span> workspace bash</span><br></pre></td></tr></table></figure>
+
 <h1 id="安裝-Laravel"><a href="#安裝-Laravel" class="headerlink" title="安裝 Laravel"></a>安裝 Laravel</h1><p>Laradock裝好後只是具備 nginx、mysql、php-fpm的條件,<br>得另外再安裝 Laravel(在容器內)</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /var/www</span><br><span class="line"><span class="comment">#其實就是等於本機上的/WWW</span></span><br><span class="line">$ composer --prefer-dist create-project laravel/laravel  GCV</span><br></pre></td></tr></table></figure>
+
 <h1 id="設定-Nginx-虛擬站台"><a href="#設定-Nginx-虛擬站台" class="headerlink" title="設定 Nginx 虛擬站台"></a>設定 Nginx 虛擬站台</h1><p>這是為了讓Laravel這個Project有專屬的網址，所以進入Laradock，將nginx的範例檔copy一份出來～～</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> Laradock/nginx/sites</span><br><span class="line">$ cp laravel.conf.example laravel.gcv.conf</span><br></pre></td></tr></table></figure>
+
 <p>請將設定檔裡的 server_name 及 root 依照自己的環境做設定。server_name 設定的是站台的網址~~</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># laravel.gcv.conf</span></span><br><span class="line">server_name laravel.gcv;</span><br><span class="line">root /var/www/GCV/public;</span><br></pre></td></tr></table></figure>
+
 <h1 id="修正-etc-hosts"><a href="#修正-etc-hosts" class="headerlink" title="修正 /etc/hosts"></a>修正 /etc/hosts</h1><p>因為nginx裡的server_name是設定為 laravel.gcv，但實際上DNS並沒有設定指向。所以本機上自己加一下，如果其它的電腦也想連的話，也要一併修正才連得到。<br>註:如果是windows，路徑在C:\Windows\System32\drivers\etc</p>
 <h1 id="設定Laravel"><a href="#設定Laravel" class="headerlink" title="設定Laravel"></a>設定Laravel</h1><p>Laradock底下MySQL安裝好預設的帳號和密碼都是root，所以Laravel底下的.env及confg/app.php檔相關的連線及時區都要改一下。</p>
 <h1 id="調整目錄權限"><a href="#調整目錄權限" class="headerlink" title="調整目錄權限"></a>調整目錄權限</h1><p>讓web server對storage及bootstrap/cache有寫入的權限</p>
 <h1 id="重啟容器並測試連線"><a href="#重啟容器並測試連線" class="headerlink" title="重啟容器並測試連線"></a>重啟容器並測試連線</h1><p>如果沒有問題，重啟容器並開啟瀏覽器對 <a href="http://laravel.gcv進行連線。" target="_blank" rel="noopener">http://laravel.gcv進行連線。</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose down</span><br><span class="line">$ docker-compose up -d nginx mysql</span><br></pre></td></tr></table></figure>
+
 <p>如果看到如下的畫面。那麼就代表Laravel的環境成功被建立啦!!</p>
 <p><img src="/images/2018/12/20181225_laravel.png" alt="Alt Laradock"></p>
 <h1 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h1><ul>
@@ -471,6 +481,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系統架構</a>
               </li>
              
@@ -511,11 +529,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -524,14 +542,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -559,7 +569,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

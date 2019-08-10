@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -8,17 +8,20 @@
   <link rel="dns-prefetch" href="http://192.97.140.104">
   <title>CentOS備份History指令 | 豆豆的學習筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="待…….">
+  <meta name="description" content="通常會有這樣的需求，大多是因為資安稽核(ISO 27001)時，主導稽核員對相關的稽核項有更高的要求而產生的。稽核員希望主機上的指令歷程可以保留的更長一點，最好還能夠被記錄在額外的日誌檔案中。所以，就來實作一下吧！！ 需求說明 指令歷程能被保留3000筆 每一筆指令都要能被dump至 /var/log/historycmd.log中 能夠記錄指令執行的帳號及連線的IP 若在console(tty">
+<meta name="keywords" content="CentOS7">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOS備份History指令">
 <meta property="og:url" content="http://192.97.140.104/2019/04/10/CentOS備份History/index.html">
 <meta property="og:site_name" content="豆豆的學習筆記">
-<meta property="og:description" content="待…….">
+<meta property="og:description" content="通常會有這樣的需求，大多是因為資安稽核(ISO 27001)時，主導稽核員對相關的稽核項有更高的要求而產生的。稽核員希望主機上的指令歷程可以保留的更長一點，最好還能夠被記錄在額外的日誌檔案中。所以，就來實作一下吧！！ 需求說明 指令歷程能被保留3000筆 每一筆指令都要能被dump至 /var/log/historycmd.log中 能夠記錄指令執行的帳號及連線的IP 若在console(tty">
 <meta property="og:locale" content="zh-Hant-TW">
-<meta property="og:updated_time" content="2019-05-28T06:56:36.000Z">
+<meta property="og:image" content="http://192.97.140.104/images/2019/04/2019-04-10_history.png">
+<meta property="og:updated_time" content="2019-08-10T09:03:32.778Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS備份History指令">
-<meta name="twitter:description" content="待…….">
+<meta name="twitter:description" content="通常會有這樣的需求，大多是因為資安稽核(ISO 27001)時，主導稽核員對相關的稽核項有更高的要求而產生的。稽核員希望主機上的指令歷程可以保留的更長一點，最好還能夠被記錄在額外的日誌檔案中。所以，就來實作一下吧！！ 需求說明 指令歷程能被保留3000筆 每一筆指令都要能被dump至 /var/log/historycmd.log中 能夠記錄指令執行的帳號及連線的IP 若在console(tty">
+<meta name="twitter:image" content="http://192.97.140.104/images/2019/04/2019-04-10_history.png">
   
     <link rel="alternative" href="/atom.xml" title="豆豆的學習筆記" type="application/atom+xml">
   
@@ -154,7 +157,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="centos-CentOS備份History" class="article article-type-centos " itemscope="" itemprop="blogPost">
+            <article id="centos-CentOS備份History" class="article article-type-centos " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -174,7 +177,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>待…….</p>
+        <p><img src="/images/2019/04/2019-04-10_history.png" alt="History"></p>
+<p>通常會有這樣的需求，大多是因為資安稽核(ISO 27001)時，主導稽核員對相關的稽核項有更高的要求而產生的。<br>稽核員希望主機上的指令歷程可以保留的更長一點，最好還能夠被記錄在額外的日誌檔案中。<br>所以，就來實作一下吧！！</p>
+<h1 id="需求說明"><a href="#需求說明" class="headerlink" title="需求說明"></a>需求說明</h1><ol>
+<li>指令歷程能被保留3000筆</li>
+<li>每一筆指令都要能被dump至 /var/log/historycmd.log中</li>
+<li>能夠記錄指令執行的帳號及連線的IP</li>
+<li>若在console(tty)登入，IP則記錄為127.0.0.1</li>
+<li>考量日後上傳至ELK的彈性，日誌檔使用”,”做為欄位區隔符號</li>
+<li>非root帳號時，指令歷程也能有權限寫入日誌檔</li>
+<li>使用 history 指令顯示歷程時需顯示日期及時間</li>
+<li>需能記錄執行指令時當下所以的路徑</li>
+</ol>
+<h1 id="實作記錄"><a href="#實作記錄" class="headerlink" title="實作記錄"></a>實作記錄</h1><p>在 /etc/profile.d/下新增 historycmd.sh<br>內容如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/profile.d/historycmd.sh - set history dump</span></span><br><span class="line"></span><br><span class="line">HISTTIMEFORMAT=<span class="string">"%F %T "</span></span><br><span class="line"></span><br><span class="line">HISTSIZE=3000</span><br><span class="line"></span><br><span class="line">HNAME=`hostname -f`</span><br><span class="line"></span><br><span class="line">NOW=`date +<span class="string">"%F %H:%M:%S"</span>`</span><br><span class="line"></span><br><span class="line">CLIENTIP=`who am i | awk -F<span class="string">"[()]"</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$SSH_CLIENT</span>"</span> = <span class="string">""</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    SSH_CLIENT=<span class="string">"127.0.0.1"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">SSHUSER=`who am i|awk <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PROMPT_COMMAND=<span class="string">'&#123; echo "$(history 1|cut -c 8-| cut -c 1-19),$&#123;HNAME&#125;,$&#123;NOW&#125;,$&#123;CLIENTIP&#125;,$&#123;SSHUSER&#125;,$&#123;USER&#125;,$(pwd),$(history 1|cut -c 28-)"; &#125; &gt;&gt; /var/log/historycmd.log'</span></span><br></pre></td></tr></table></figure>
+
+<p>在/var/log/目錄下touch一個 historycmd.log 檔，並chmod 666</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ touch /var/<span class="built_in">log</span>/historycmd.log</span><br><span class="line">$ chmod 666 /var/<span class="built_in">log</span>/history.log</span><br></pre></td></tr></table></figure>
+
 
       
 
@@ -204,7 +224,29 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">CentOS7</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Tools//" class="article-tag-list-link color1">Tools</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -405,6 +447,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系統架構</a>
               </li>
              
@@ -445,11 +495,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -458,14 +508,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -493,7 +535,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

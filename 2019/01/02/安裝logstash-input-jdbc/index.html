@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -158,7 +158,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-安裝logstash-input-jdbc" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-安裝logstash-input-jdbc" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -182,16 +182,21 @@
 <p>因為ELK想要接收Oracle的transaction log，所以想要透由JDBC的方式直接去擷取……那麼就得在logstash上安裝 logstash-input-jdbc!!</p>
 <p>查了一下官方的手冊，logstash-input-jdbc的安裝源放在 <a href="https://github.com/logstash-plugins/logstash-input-jdbc" target="_blank" rel="noopener">github</a>上。這邊要特別注意的是： logstash-input-jdbc 是用ruby寫的，所以安裝前也得先把ruby環境安裝一下!!</p>
 <a id="more"></a>
+
 <p>上網查了一下，網路上好像有一些不同的安裝方式，不過因為對Ruby完全沒概念。<br>後來，發現github上的說明檔有一段說明是 [Run in an installed Logstash]，所以在已經安裝好Logstash的前提下，安裝步驟應該照著做就可以!!</p>
 <p><img src="/images/2019/01/20190102_logstash-input-jdbc.png" alt="Run in an installed Logstash"></p>
 <h1 id="安裝-gem"><a href="#安裝-gem" class="headerlink" title="安裝 gem"></a>安裝 gem</h1><p>這是為了讓ruby能夠 build logstash-input-jdbc</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install gem</span><br></pre></td></tr></table></figure>
+
 <h1 id="下載-logstash-input-jdbc"><a href="#下載-logstash-input-jdbc" class="headerlink" title="下載 logstash-input-jdbc"></a>下載 logstash-input-jdbc</h1><p>先到github把原始程式下載回來</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/logstash-plugins/logstash-input-jdbc.git</span><br></pre></td></tr></table></figure>
+
 <h1 id="build"><a href="#build" class="headerlink" title="build"></a>build</h1><p>用 gem 將下載回來的 logstash-input-jdbc build一下，build完之後會產生一個 logstash-input-jdbc-x.x.x.gem檔。目前最新的版本是 4.3.13 ~~</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> logstash-input-jdbc</span><br><span class="line">$ gem build logstash-input-jdbc.gemspec</span><br><span class="line">  Successfully built RubyGem</span><br><span class="line">  Name: logstash-input-jdbc</span><br><span class="line">  Version: 4.3.13</span><br><span class="line">  File: logstash-input-jdbc-4.3.13.gem</span><br></pre></td></tr></table></figure>
+
 <h1 id="plugin-安裝"><a href="#plugin-安裝" class="headerlink" title="plugin 安裝"></a>plugin 安裝</h1><p>依據官方的說明，必需在logstash安裝路徑下執行 plugin install .gem路徑，但我發現我的安裝路徑下並沒有 plugin這支程式了，新版本好像改名成 logstash-plugin～～</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /usr/share/logstash/</span><br><span class="line">$ ./logstash-plugin install /root/logstash-input-jdbc/logstash-input-jdbc-4.3.13.gem</span><br><span class="line">Validating /root/logstash-input-jdbc/logstash-input-jdbc-4.3.13.gem</span><br><span class="line">Installing logstash-input-jdbc</span><br><span class="line">Installation successful</span><br></pre></td></tr></table></figure>
+
 <p>這樣，logstash-input-jdbc應該就安裝好了!!</p>
 
       
@@ -445,6 +450,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系統架構</a>
               </li>
              
@@ -485,11 +498,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -498,14 +511,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -533,7 +538,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="http://192.97.140.104">
   <title>CentOS7安裝Redis | 豆豆的學習筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="安裝 EPEL Repo1yum -y install epel-release 安裝 Remi Repo1yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm 從 Remi Repo 安裝 Redis1yum -y --enablerepo=remi,remi-test install redis">
+  <meta name="description" content="安裝 EPEL Repo1yum -y install epel-release  安裝 Remi Repo1yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm  從 Remi Repo 安裝 Redis1yum -y --enablerepo=remi,remi-test install redis">
 <meta name="keywords" content="Redis,Linux,CentOS7">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOS7安裝Redis">
 <meta property="og:url" content="http://192.97.140.104/2018/12/11/CentOS7安裝Redis/index.html">
 <meta property="og:site_name" content="豆豆的學習筆記">
-<meta property="og:description" content="安裝 EPEL Repo1yum -y install epel-release 安裝 Remi Repo1yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm 從 Remi Repo 安裝 Redis1yum -y --enablerepo=remi,remi-test install redis">
+<meta property="og:description" content="安裝 EPEL Repo1yum -y install epel-release  安裝 Remi Repo1yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm  從 Remi Repo 安裝 Redis1yum -y --enablerepo=remi,remi-test install redis">
 <meta property="og:locale" content="zh-Hant-TW">
 <meta property="og:image" content="http://192.97.140.104/images/2018/12/20181211_CentOS7Redis.png">
 <meta property="og:updated_time" content="2018-12-12T02:57:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS7安裝Redis">
-<meta name="twitter:description" content="安裝 EPEL Repo1yum -y install epel-release 安裝 Remi Repo1yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm 從 Remi Repo 安裝 Redis1yum -y --enablerepo=remi,remi-test install redis">
+<meta name="twitter:description" content="安裝 EPEL Repo1yum -y install epel-release  安裝 Remi Repo1yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm  從 Remi Repo 安裝 Redis1yum -y --enablerepo=remi,remi-test install redis">
 <meta name="twitter:image" content="http://192.97.140.104/images/2018/12/20181211_CentOS7Redis.png">
   
     <link rel="alternative" href="/atom.xml" title="豆豆的學習筆記" type="application/atom+xml">
@@ -157,7 +157,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-CentOS7安裝Redis" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-CentOS7安裝Redis" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -179,24 +179,39 @@
       
         <p><img src="/images/2018/12/20181211_CentOS7Redis.png" alt="Alt Redis"></p>
 <h1 id="安裝-EPEL-Repo"><a href="#安裝-EPEL-Repo" class="headerlink" title="安裝 EPEL Repo"></a>安裝 EPEL Repo</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install epel-release</span><br></pre></td></tr></table></figure>
+
 <h1 id="安裝-Remi-Repo"><a href="#安裝-Remi-Repo" class="headerlink" title="安裝 Remi Repo"></a>安裝 Remi Repo</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm</span><br></pre></td></tr></table></figure>
+
 <h1 id="從-Remi-Repo-安裝-Redis"><a href="#從-Remi-Repo-安裝-Redis" class="headerlink" title="從 Remi Repo 安裝 Redis"></a>從 Remi Repo 安裝 Redis</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y --enablerepo=remi,remi-test install redis</span><br></pre></td></tr></table></figure>
+
 <a id="more"></a>
+
 <h1 id="開機時啟動Redis"><a href="#開機時啟動Redis" class="headerlink" title="開機時啟動Redis"></a>開機時啟動Redis</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> redis.service</span><br></pre></td></tr></table></figure>
+
 <h1 id="開啟防火牆"><a href="#開啟防火牆" class="headerlink" title="開啟防火牆"></a>開啟防火牆</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#允許 6379 port</span></span><br><span class="line">firewall-cmd --permanent --add-port=6379/tcp</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
 <h1 id="啟動-Redis"><a href="#啟動-Redis" class="headerlink" title="啟動 Redis"></a>啟動 Redis</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start redis.service</span><br></pre></td></tr></table></figure>
+
 <h1 id="查目前安裝的版本"><a href="#查目前安裝的版本" class="headerlink" title="查目前安裝的版本"></a>查目前安裝的版本</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server --version</span><br></pre></td></tr></table></figure>
-<h1 id="服務測試"><a href="#服務測試" class="headerlink" title="服務測試"></a>服務測試</h1><p>如果有收到PONG回應就表示服務是好的<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli ping</span><br></pre></td></tr></table></figure></p>
+
+<h1 id="服務測試"><a href="#服務測試" class="headerlink" title="服務測試"></a>服務測試</h1><p>如果有收到PONG回應就表示服務是好的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli ping</span><br></pre></td></tr></table></figure>
+
 <h1 id="效能測試"><a href="#效能測試" class="headerlink" title="效能測試"></a>效能測試</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-benchmark -q -n 100000</span><br></pre></td></tr></table></figure>
+
 <h1 id="設定檔"><a href="#設定檔" class="headerlink" title="設定檔"></a>設定檔</h1><ul>
 <li>/etc/redis.conf：普通單一的redis server設定檔，預設 port 是 6379</li>
 <li>/etc/redis-sentinel.conf：管理多個redis，實現高可用性high availability功能，預設 port 是 26379 </li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#bind 設定</span></span><br><span class="line"><span class="comment">#0.0.0.0 全部都可連</span></span><br><span class="line"><span class="comment">#127.0.0.1 只能本機連</span></span><br><span class="line"><span class="built_in">bind</span> 127.0.0.1</span><br><span class="line"></span><br><span class="line"><span class="comment">#快取資料儲存到硬碟的頻率</span></span><br><span class="line"><span class="comment">#900秒內有1次更新</span></span><br><span class="line">save 900 1</span><br><span class="line"><span class="comment">#300秒內有10次更新</span></span><br><span class="line">save 300 10</span><br><span class="line"><span class="comment">#60秒內有10000次更新</span></span><br><span class="line">save 60 10000</span><br><span class="line"></span><br><span class="line"><span class="comment">#AUTH 密碼設定</span></span><br><span class="line">requirepass 密碼</span><br></pre></td></tr></table></figure>
+
 <h1 id="相關指令"><a href="#相關指令" class="headerlink" title="相關指令"></a>相關指令</h1><p>[參考:xyz.cinc.biz]</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#本機連線</span></span><br><span class="line">redis-cli</span><br><span class="line"><span class="comment">#指定 port、IP 連線</span></span><br><span class="line">redis-cli -p 6379 -h 127.0.0.1</span><br><span class="line"><span class="comment">#用telent連線(建議用redis-cli，redis-cli有指令自動完成提示)</span></span><br><span class="line">telnet 127.0.0.1 6379</span><br><span class="line"></span><br><span class="line"><span class="comment">#有設密碼時，須先用 auth 指令認證</span></span><br><span class="line">127.0.0.1:6379&gt; AUTH 密碼</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line"><span class="comment">#測試</span></span><br><span class="line">127.0.0.1:6379&gt; ping</span><br><span class="line">PONG</span><br><span class="line"></span><br><span class="line"><span class="comment">#取得 server 全部設定值</span></span><br><span class="line">127.0.0.1:6379&gt; CONFIG GET *</span><br><span class="line"></span><br><span class="line"><span class="comment">#設定String類型快取資料</span></span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> k1 <span class="built_in">test</span></span><br><span class="line">OK</span><br><span class="line"><span class="comment">#取得String類型快取資料</span></span><br><span class="line">127.0.0.1:6379&gt; get k1</span><br><span class="line"><span class="string">"test"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#取得所有key</span></span><br><span class="line">127.0.0.1:6379&gt; keys *</span><br><span class="line"></span><br><span class="line"><span class="comment">#取得PHP開頭的key</span></span><br><span class="line">127.0.0.1:6379&gt; keys PHP*</span><br><span class="line">1) <span class="string">"PHPREDIS_SESSION:n47g4vh1qt2pltplkd3lhifes2"</span></span><br><span class="line">2) <span class="string">"PHPREDIS_SESSION:qp2fj1dpff0rgt6lakno4nrlh1"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查看伺服器資訊</span></span><br><span class="line">127.0.0.1:6379&gt; info</span><br><span class="line"></span><br><span class="line"><span class="comment">#切換到1號DB (編號從0開始，預設為0)</span></span><br><span class="line">127.0.0.1:6379&gt; select 1</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379[1]&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#刪除 key 為 k1 的資料</span></span><br><span class="line">1127.0.0.1:6379&gt; del k1</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line"></span><br><span class="line"><span class="comment">#清空目前DB所有資料</span></span><br><span class="line">127.0.0.1:6379&gt; flushdb</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line"><span class="comment">#清空全部DB的資料 </span></span><br><span class="line">127.0.0.1:6379&gt; flushall</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line"><span class="comment">#查詢資料剩多久過期</span></span><br><span class="line"><span class="comment">#-1表示沒設定過期時間</span></span><br><span class="line"><span class="comment">#-2表示key不存在</span></span><br><span class="line">127.0.0.1:6379&gt; TTL k1</span><br><span class="line">(<span class="built_in">integer</span>) -1</span><br><span class="line">127.0.0.1:6379&gt; TTL ktest</span><br><span class="line">(<span class="built_in">integer</span>) -2</span><br><span class="line"></span><br><span class="line"><span class="comment">#設定資料多久後過期(毫秒)，例如設定 k1 在 8 秒後過期</span></span><br><span class="line"><span class="comment">#成功返回1，失敗或key不存在返回0</span></span><br><span class="line">127.0.0.1:6379&gt; pexpire k1 8000</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line"></span><br><span class="line"><span class="comment">#列出目前 client 端的連線</span></span><br><span class="line">127.0.0.1:6379&gt; CLIENT LIST</span><br></pre></td></tr></table></figure>
+
 <h1 id="安裝-php-pecl-redis-phpredis-PHP-Redis-extension"><a href="#安裝-php-pecl-redis-phpredis-PHP-Redis-extension" class="headerlink" title="安裝 php-pecl-redis(phpredis)-PHP Redis extension"></a>安裝 php-pecl-redis(phpredis)-PHP Redis extension</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安裝，安裝後重新啟動</span></span><br><span class="line"><span class="comment">#https://pecl.php.net/package/redis</span></span><br><span class="line"><span class="comment">#https://github.com/phpredis/phpredis#readme</span></span><br><span class="line">yum install php-pecl-redis</span><br></pre></td></tr></table></figure>
+
 <h1 id="PHP-連接-Redis-簡單範例"><a href="#PHP-連接-Redis-簡單範例" class="headerlink" title="PHP 連接 Redis 簡單範例"></a>PHP 連接 Redis 簡單範例</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$redis = <span class="keyword">new</span> Redis();</span><br><span class="line">$redis-&gt;connect(<span class="string">'127.0.0.1'</span>, <span class="number">6379</span>);</span><br><span class="line">$redis-&gt;auth(<span class="string">'密碼'</span>); <span class="comment">//如果有設定 requirepass</span></span><br><span class="line">$redis-&gt;set(<span class="string">'aa'</span>, <span class="string">'abcd'</span>);</span><br><span class="line"><span class="keyword">echo</span> $redis-&gt;get(<span class="string">'aa'</span>);</span><br></pre></td></tr></table></figure>
+
 <h1 id="相關文件"><a href="#相關文件" class="headerlink" title="相關文件"></a>相關文件</h1><ul>
 <li><a href="http://redis.readthedocs.org/en/latest/topic/sentinel.html" target="_blank" rel="noopener">http://redis.readthedocs.org/en/latest/topic/sentinel.html</a></li>
 <li><a href="https://xyz.cinc.biz/2015/09/centos7-redis-php.html" target="_blank" rel="noopener">https://xyz.cinc.biz/2015/09/centos7-redis-php.html</a></li>
@@ -461,6 +476,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系統架構</a>
               </li>
              
@@ -501,11 +524,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -514,14 +537,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -549,7 +564,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

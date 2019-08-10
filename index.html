@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -152,7 +152,7 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-EasyRedmind" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-EasyRedmind" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -264,7 +264,7 @@
 
 
   
-    <article id="centos-CentOS備份History" class="article article-type-centos  article-index" itemscope="" itemprop="blogPost">
+    <article id="centos-CentOS備份History" class="article article-type-centos  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -284,7 +284,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>待…….</p>
+        <p><img src="/images/2019/04/2019-04-10_history.png" alt="History"></p>
+<p>通常會有這樣的需求，大多是因為資安稽核(ISO 27001)時，主導稽核員對相關的稽核項有更高的要求而產生的。<br>稽核員希望主機上的指令歷程可以保留的更長一點，最好還能夠被記錄在額外的日誌檔案中。<br>所以，就來實作一下吧！！</p>
+<h1 id="需求說明"><a href="#需求說明" class="headerlink" title="需求說明"></a>需求說明</h1><ol>
+<li>指令歷程能被保留3000筆</li>
+<li>每一筆指令都要能被dump至 /var/log/historycmd.log中</li>
+<li>能夠記錄指令執行的帳號及連線的IP</li>
+<li>若在console(tty)登入，IP則記錄為127.0.0.1</li>
+<li>考量日後上傳至ELK的彈性，日誌檔使用”,”做為欄位區隔符號</li>
+<li>非root帳號時，指令歷程也能有權限寫入日誌檔</li>
+<li>使用 history 指令顯示歷程時需顯示日期及時間</li>
+<li>需能記錄執行指令時當下所以的路徑</li>
+</ol>
+<h1 id="實作記錄"><a href="#實作記錄" class="headerlink" title="實作記錄"></a>實作記錄</h1><p>在 /etc/profile.d/下新增 historycmd.sh<br>內容如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/profile.d/historycmd.sh - set history dump</span></span><br><span class="line"></span><br><span class="line">HISTTIMEFORMAT=<span class="string">"%F %T "</span></span><br><span class="line"></span><br><span class="line">HISTSIZE=3000</span><br><span class="line"></span><br><span class="line">HNAME=`hostname -f`</span><br><span class="line"></span><br><span class="line">NOW=`date +<span class="string">"%F %H:%M:%S"</span>`</span><br><span class="line"></span><br><span class="line">CLIENTIP=`who am i | awk -F<span class="string">"[()]"</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$SSH_CLIENT</span>"</span> = <span class="string">""</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    SSH_CLIENT=<span class="string">"127.0.0.1"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">SSHUSER=`who am i|awk <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PROMPT_COMMAND=<span class="string">'&#123; echo "$(history 1|cut -c 8-| cut -c 1-19),$&#123;HNAME&#125;,$&#123;NOW&#125;,$&#123;CLIENTIP&#125;,$&#123;SSHUSER&#125;,$&#123;USER&#125;,$(pwd),$(history 1|cut -c 28-)"; &#125; &gt;&gt; /var/log/historycmd.log'</span></span><br></pre></td></tr></table></figure>
+
+<p>在/var/log/目錄下touch一個 historycmd.log 檔，並chmod 666</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ touch /var/<span class="built_in">log</span>/historycmd.log</span><br><span class="line">$ chmod 666 /var/<span class="built_in">log</span>/history.log</span><br></pre></td></tr></table></figure>
+
 
       
 
@@ -293,7 +310,29 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">CentOS7</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Tools//" class="article-tag-list-link color1">Tools</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
         <p class="article-more-link">
@@ -327,7 +366,7 @@
 
 
   
-    <article id="post-Gmail-API-Overview" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-Gmail-API-Overview" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -437,7 +476,7 @@
 
 
   
-    <article id="post-NginxConfig" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-NginxConfig" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -535,7 +574,7 @@
 
 
   
-    <article id="post-OAuth2-0初探筆記" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-OAuth2-0初探筆記" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -602,7 +641,7 @@
 
 
   
-    <article id="post-ElasticSearch簡易資料查詢" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-ElasticSearch簡易資料查詢" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -623,7 +662,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="查詢所有的index"><a href="#查詢所有的index" class="headerlink" title="查詢所有的index"></a>查詢所有的index</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.97.140.16:9200/_cat/indices?v</span><br></pre></td></tr></table></figure>
+
 <h2 id="Index-所包含的-Type"><a href="#Index-所包含的-Type" class="headerlink" title="Index 所包含的 Type"></a>Index 所包含的 Type</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.97.140.16:9200/jdbc-law99ot-2019.01.04?pretty=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
 <h1 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h1><p><a href="http://www.ruanyifeng.com/blog/2017/08/elasticsearch.html" target="_blank" rel="noopener">全文搜索引擎 Elasticsearch 入门教程</a></p>
 
       
@@ -689,7 +730,7 @@
 
 
   
-    <article id="post-安裝logstash-input-jdbc" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-安裝logstash-input-jdbc" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -778,7 +819,7 @@
 
 
   
-    <article id="post-Docker上運行Laravel" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-Docker上運行Laravel" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -800,9 +841,12 @@
       
         <p>因為專案需要，想要有一個PHP + Laravel的測試開發環境~~但是懶惰一點不想大費週張一個一個套件安裝之外，又想接觸新的技術和架構，加上Container夯很多年了!!所以，沒有其它選擇了!!今天就試著在docker上面利用 Laradock 將PHP、nginx、mysql環境跑起來之後再安裝Laravel!!</p>
 <h1 id="安裝-Laradock"><a href="#安裝-Laradock" class="headerlink" title="安裝 Laradock"></a>安裝 Laradock</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /Docker</span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/laradock/laradock.git Laradock</span><br></pre></td></tr></table></figure>
+
 <h1 id="修改-env檔"><a href="#修改-env檔" class="headerlink" title="修改 .env檔"></a>修改 .env檔</h1><p>想要把網頁相關的專案都放在/WWW下，所以修改一下Laradock之下的.env檔，將程式的專案根目錄指向本機OS的/WWW</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> Laradock</span><br><span class="line">$ cp env-example .env</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#APP_CODE_PATH_HOST=../  #這是原始設定</span></span><br><span class="line">APP_CODE_PATH_HOST=/WWW/</span><br></pre></td></tr></table></figure>
+
 <p>這樣容器運行後,容器內部的 /var/www 會連結到外層OS的 /WWW</p>
         
           <a class="article-more-a" href="/2018/12/25/Docker上運行Laravel/#more">more >></a>
@@ -878,7 +922,7 @@
 
 
   
-    <article id="post-在Docker環境下安裝Zabbix" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-在Docker環境下安裝Zabbix" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -977,7 +1021,7 @@
 
 
   
-    <article id="post-Logstash安裝" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-Logstash安裝" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1168,6 +1212,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系統架構</a>
               </li>
              
@@ -1208,11 +1260,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1221,14 +1273,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1256,7 +1300,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

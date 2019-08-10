@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -157,7 +157,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Logstash安裝" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-Logstash安裝" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -181,18 +181,25 @@
 <p>先前，我們裝好了 Filebeat、Redis及Elasticsearch，接著我們要來安裝Logstash。<br>Logstash這個角色介於 Redis與Elasticsearch之間。負責從Redis讀取資料，再輸出至Elasticsearch。</p>
 <h1 id="安裝"><a href="#安裝" class="headerlink" title="安裝"></a>安裝</h1><h2 id="更新安裝源"><a href="#更新安裝源" class="headerlink" title="更新安裝源"></a>更新安裝源</h2><p>因為安裝filebeat時已經設定過repo來源，原則上只需設定logstash repo來源就可以。<br>但還是可以用 yum repolist確認一下已安裝的repo來原有那些:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@ELK yum.repos.d]<span class="comment"># yum repolist</span></span><br><span class="line">Loaded plugins: fastestmirror, langpacks</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"></span><br><span class="line">.....略</span><br><span class="line"></span><br><span class="line">repo id               repo name                                                     status</span><br><span class="line">!base/7/x86_64        CentOS-7 - Base                                               10,019</span><br><span class="line">!elasticsearch-6.x    Elasticsearch repository <span class="keyword">for</span> 6.x packages                        337</span><br><span class="line">*!epel/x86_64         Extra Packages <span class="keyword">for</span> Enterprise Linux 7 - x86_64                12,738</span><br><span class="line">!extras/7/x86_64      CentOS-7 - Extras                                                321</span><br><span class="line">!remi-safe            Safe Remi<span class="string">'s RPM repository for Enterprise Linux 7 - x86_64     3,094</span></span><br><span class="line"><span class="string">!updates/7/x86_64     CentOS-7 - Updates                                               599</span></span><br></pre></td></tr></table></figure>
+
 <a id="more"></a>
+
 <p>如果有看到類似第9行所列出的，就是之前有裝過了!!<br>如果沒有上述的Elasticsearch來源的話，就執行一面的指令，安裝一下吧!!</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch</span><br></pre></td></tr></table></figure>
+
 <h2 id="新增logstash-repo"><a href="#新增logstash-repo" class="headerlink" title="新增logstash repo　"></a>新增logstash repo　</h2><p>新增檔案 /etc/yum.repos.d/logstash.repo</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[logstash-6.x]</span><br><span class="line">name=Elastic repository <span class="keyword">for</span> 6.x packages</span><br><span class="line">baseurl=https://artifacts.elastic.co/packages/6.x/yum</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch</span><br><span class="line">enabled=1</span><br><span class="line">autorefresh=1</span><br><span class="line"><span class="built_in">type</span>=rpm-md</span><br></pre></td></tr></table></figure>
+
 <h1 id="服務測試"><a href="#服務測試" class="headerlink" title="服務測試"></a>服務測試</h1><p><a href="https://www.elastic.co/guide/en/logstash/6.5/dir-layout.html" target="_blank" rel="noopener">Logstach檔案結構</a></p>
 <p>RPM安裝好的logstash執行檔是在 /usr/share/logstash/bin/底下，logstash運作時有二個必要的elements是需要指定的：分別是input與output。<br>所以我們手動執行logstash，將input指向stdin(標準輸入)及stout(標準輸出)，並試著輸入 hello world，來看看logstash是否能運作。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@ELK ~]<span class="comment"># cd /usr/share/logstash/bin/</span></span><br><span class="line">[root@ELK ~]<span class="comment"># ./logstash -e 'input &#123; stdin &#123; &#125; &#125; output &#123; stdout &#123;&#125; &#125;'</span></span><br><span class="line">hello world</span><br><span class="line"></span><br><span class="line">略.....</span><br></pre></td></tr></table></figure>
+
 <p>理論上，如果logstash運作正常，是會回應訊息的。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[INFO ] 2018-12-13 17:21:35.324 [Api Webserver] agent - Successfully started Logstash API endpoint &#123;:port=&gt;9600&#125;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"@timestamp"</span> =&gt; 2018-12-13T09:21:34.758Z,</span><br><span class="line">       <span class="string">"message"</span> =&gt; <span class="string">"hello world"</span>,</span><br><span class="line">      <span class="string">"@version"</span> =&gt; <span class="string">"1"</span>,</span><br><span class="line">          <span class="string">"host"</span> =&gt; <span class="string">"ELK.localdomain"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h1 id="從Redis讀取資料並輸出至Elasticsearch"><a href="#從Redis讀取資料並輸出至Elasticsearch" class="headerlink" title="從Redis讀取資料並輸出至Elasticsearch"></a>從Redis讀取資料並輸出至Elasticsearch</h1><h2 id="設定"><a href="#設定" class="headerlink" title="設定"></a>設定</h2><p>當然，如果logstash服務運作上沒有問題，接著可以一步步的將logstash input來源指向 redis 而 output 指向elasticsearch。<br>在設定之前，我們可以看一下 /etc/logstash/pipelines.yml　這個設定。<br>我們會發現底下有一行參數是這麼指向的：　 path.config: “/etc/logstash/conf.d/*.conf”<br>也就是說，pipeline相關的設定是放在/etc/logstash/conf.d/目錄下，且副檔名以.conf結尾。<br>所以，我們就在 /etc/logstash/conf.d/ 目錄下加了一個 redis-pipeline.conf 設定檔，內容如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Redis &lt;- Logstash -&gt; Elasticsearch pipeline.</span></span><br><span class="line"></span><br><span class="line">input &#123;</span><br><span class="line">    redis &#123;</span><br><span class="line">        data_type =&gt; <span class="string">"list"</span></span><br><span class="line">        key =&gt; <span class="string">"filebeat"</span></span><br><span class="line">        host =&gt; <span class="string">"127.0.0.1"</span></span><br><span class="line">        port =&gt; 6379</span><br><span class="line">        threads =&gt; 5</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output &#123;</span><br><span class="line">  elasticsearch &#123;</span><br><span class="line">    hosts =&gt; [<span class="string">"http://localhost:9200"</span>]</span><br><span class="line">    index =&gt; <span class="string">"%&#123;[@metadata][beat]&#125;-%&#123;[@metadata][version]&#125;-%&#123;+YYYY.MM.dd&#125;"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>其中，LogStash::Iutputs::Redis支持三種 data_type:</p>
 <ul>
 <li>List: BLPOP =&gt; 陣列</li>
@@ -208,10 +215,13 @@
 </ul>
 <h2 id="設定檔檢查"><a href="#設定檔檢查" class="headerlink" title="設定檔檢查"></a>設定檔檢查</h2><p>建議設定檔設好後，加個 –config.test_and_exit 參數，做個設定檔檢查測試~~　如果設定的格式或參數有錯，會和你說錯在那裡，如果設定沒問題。就回應 Configuration OK的訊息!!</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@ELK logstash]<span class="comment"># /usr/share/logstash/bin/logstash --config.test_and_exit --path.settings=/etc/logstash/</span></span><br><span class="line">Sending Logstash logs to /var/<span class="built_in">log</span>/logstash <span class="built_in">which</span> is now configured via log4j2.properties</span><br><span class="line">Configuration OK</span><br><span class="line">[2018-12-14T09:33:44,219][INFO ][logstash.runner          ] Using config.test_and_exit mode. Config Validation Result: OK. Exiting Logstash</span><br></pre></td></tr></table></figure>
-<h2 id="驗證"><a href="#驗證" class="headerlink" title="驗證"></a>驗證</h2><p>設定沒問題的話，就可以改換成 –config.reload.automatic 參數，實際跑看看~~ 甚至是可以試著模擬一些事件，看看從filebeat -&gt; redis -&gt; logstash 是否都有收到資料。<br>如果有收到類似如下的事件, 那就代表能從redis讀到資料囉~~</p>
+
+<h2 id="驗證"><a href="#驗證" class="headerlink" title="驗證"></a>驗證</h2><p>設定沒問題的話，就可以改換成 –config.reload.automatic 參數，實際跑看看<del>~ 甚至是可以試著模擬一些事件，看看從filebeat -&gt; redis -&gt; logstash 是否都有收到資料。<br>如果有收到類似如下的事件, 那就代表能從redis讀到資料囉</del></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">/usr/share/logstash/bin/logstash --config.reload.automatic --path.settings=/etc/logstash/</span><br><span class="line"></span><br><span class="line">....... 略 .......</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"@timestamp"</span> =&gt; 2018-12-17T07:27:55.837Z,</span><br><span class="line">        <span class="string">"offset"</span> =&gt; 1015,</span><br><span class="line">        <span class="string">"source"</span> =&gt; <span class="string">"/var/log/secure"</span>,</span><br><span class="line">      <span class="string">"@version"</span> =&gt; <span class="string">"1"</span>,</span><br><span class="line">       <span class="string">"message"</span> =&gt; <span class="string">"Dec 17 15:27:52 elk sshd[10871]: pam_unix(sshd:session): session opened for user root by (uid=0)"</span>,</span><br><span class="line">    <span class="string">"prospector"</span> =&gt; &#123;</span><br><span class="line">        <span class="string">"type"</span> =&gt; <span class="string">"log"</span></span><br><span class="line">    &#125;,</span><br><span class="line">         <span class="string">"input"</span> =&gt; &#123;</span><br><span class="line">        <span class="string">"type"</span> =&gt; <span class="string">"log"</span></span><br><span class="line">    &#125;,</span><br><span class="line">          <span class="string">"beat"</span> =&gt; &#123;</span><br><span class="line">        <span class="string">"hostname"</span> =&gt; <span class="string">"ELK.localdomain"</span>,</span><br><span class="line">         <span class="string">"version"</span> =&gt; <span class="string">"6.5.2"</span>,</span><br><span class="line">            <span class="string">"name"</span> =&gt; <span class="string">"ELK.localdomain"</span></span><br><span class="line">    &#125;,</span><br><span class="line">          <span class="string">"host"</span> =&gt; &#123;</span><br><span class="line">         <span class="string">"architecture"</span> =&gt; <span class="string">"x86_64"</span>,</span><br><span class="line">                   <span class="string">"id"</span> =&gt; <span class="string">"48876c3212b14008a12413296f888c5b"</span>,</span><br><span class="line">                 <span class="string">"name"</span> =&gt; <span class="string">"ELK.localdomain"</span>,</span><br><span class="line">        <span class="string">"containerized"</span> =&gt; <span class="literal">true</span>,</span><br><span class="line">                   <span class="string">"os"</span> =&gt; &#123;</span><br><span class="line">            <span class="string">"codename"</span> =&gt; <span class="string">"Core"</span>,</span><br><span class="line">             <span class="string">"version"</span> =&gt; <span class="string">"7 (Core)"</span>,</span><br><span class="line">              <span class="string">"family"</span> =&gt; <span class="string">"redhat"</span>,</span><br><span class="line">            <span class="string">"platform"</span> =&gt; <span class="string">"centos"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>那麼寫入Elasticsearch的部份要怎麼看呢？<br>雖然可以透過 curl <a href="http://localhost:9200/_search" target="_blank" rel="noopener">http://localhost:9200/_search</a> 的方式去搜尋，但太不視覺化了。<br>所以，改天再來介紹ELK的另一個成員: Kibana 囉~~</p>
 <h1 id="正式啟用服務"><a href="#正式啟用服務" class="headerlink" title="正式啟用服務"></a>正式啟用服務</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> logstash.service</span><br><span class="line">systemctl start logstash.service</span><br></pre></td></tr></table></figure>
+
 <h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
 <li><a href="https://doc.yonyoucloud.com/doc/logstash-best-practice-cn/index.html" target="_blank" rel="noopener">Logstash 最佳实践</a></li>
 </ul>
@@ -471,6 +481,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系統架構</a>
               </li>
              
@@ -511,11 +529,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -524,14 +542,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -559,7 +569,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:
