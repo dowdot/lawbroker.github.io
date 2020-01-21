@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="12345678910docker run --detach \  --hostname gitlab1190.lawbroker.com.tw \  --publish 443:443 --publish 80:80 --publish 22:22 \  --name gitlab \  --restart always \  --volume /u01/gitlab/config:/etc/g">
+<meta name="description" content="安裝Gitlab從Docker Hub 將 Gitlab Run 起來  設定Gitlab的hostname mapping 相關的port 因為Jenkins會用 ssh key 與 Gitlab 進行驗證, 所以gitlab的SSH設定成正規的22 PORT, 比較不會找自己麻煩 幫Container取名為gitlab 設定為永遠啟用,就算死掉了也會自己跑起來(可不設) mapping 內外部">
 <meta name="keywords" content="CentOS,Docker,Gitlab">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Gitlab 用Docker簡易安裝篇">
 <meta property="og:url" content="http://192.97.140.104/2019/12/18/gitlab-install/index.html">
 <meta property="og:site_name" content="豆豆的學習筆記">
-<meta property="og:description" content="12345678910docker run --detach \  --hostname gitlab1190.lawbroker.com.tw \  --publish 443:443 --publish 80:80 --publish 22:22 \  --name gitlab \  --restart always \  --volume /u01/gitlab/config:/etc/g">
+<meta property="og:description" content="安裝Gitlab從Docker Hub 將 Gitlab Run 起來  設定Gitlab的hostname mapping 相關的port 因為Jenkins會用 ssh key 與 Gitlab 進行驗證, 所以gitlab的SSH設定成正規的22 PORT, 比較不會找自己麻煩 幫Container取名為gitlab 設定為永遠啟用,就算死掉了也會自己跑起來(可不設) mapping 內外部">
 <meta property="og:locale" content="zh-Hant-TW">
-<meta property="og:updated_time" content="2019-12-31T00:51:26.832Z">
+<meta property="og:updated_time" content="2020-01-21T08:34:30.252Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gitlab 用Docker簡易安裝篇">
-<meta name="twitter:description" content="12345678910docker run --detach \  --hostname gitlab1190.lawbroker.com.tw \  --publish 443:443 --publish 80:80 --publish 22:22 \  --name gitlab \  --restart always \  --volume /u01/gitlab/config:/etc/g">
+<meta name="twitter:description" content="安裝Gitlab從Docker Hub 將 Gitlab Run 起來  設定Gitlab的hostname mapping 相關的port 因為Jenkins會用 ssh key 與 Gitlab 進行驗證, 所以gitlab的SSH設定成正規的22 PORT, 比較不會找自己麻煩 幫Container取名為gitlab 設定為永遠啟用,就算死掉了也會自己跑起來(可不設) mapping 內外部">
 
 
 
@@ -322,7 +322,17 @@
       
 
       
-        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker run --detach \</span><br><span class="line">  --hostname gitlab1190.lawbroker.com.tw \</span><br><span class="line">  --publish 443:443 --publish 80:80 --publish 22:22 \</span><br><span class="line">  --name gitlab \</span><br><span class="line">  --restart always \</span><br><span class="line">  --volume /u01/gitlab/config:/etc/gitlab \</span><br><span class="line">  --volume /u01/gitlab/logs:/var/<span class="built_in">log</span>/gitlab \</span><br><span class="line">  --volume /u01/gitlab/data:/var/opt/gitlab \</span><br><span class="line">  -e <span class="string">"TZ=Asia/Taipei"</span> \</span><br><span class="line">  gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure>
+        <h2 id="安裝Gitlab"><a href="#安裝Gitlab" class="headerlink" title="安裝Gitlab"></a>安裝Gitlab</h2><p>從Docker Hub 將 Gitlab Run 起來</p>
+<ol>
+<li>設定Gitlab的hostname</li>
+<li>mapping 相關的port</li>
+<li>因為Jenkins會用 ssh key 與 Gitlab 進行驗證, 所以gitlab的SSH設定成正規的22 PORT, 比較不會找自己麻煩</li>
+<li>幫Container取名為gitlab</li>
+<li>設定為永遠啟用,就算死掉了也會自己跑起來(可不設)</li>
+<li>mapping 內外部的資料夾</li>
+<li>指定gitlab的OS時區</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker run --detach \</span><br><span class="line">  --hostname gitlab1190.lawbroker.com.tw \</span><br><span class="line">  --publish 443:443 --publish 80:80 --publish 22:22 \</span><br><span class="line">  --name gitlab \</span><br><span class="line">  --restart always \</span><br><span class="line">  --volume /u01/gitlab/config:/etc/gitlab \</span><br><span class="line">  --volume /u01/gitlab/logs:/var/<span class="built_in">log</span>/gitlab \</span><br><span class="line">  --volume /u01/gitlab/data:/var/opt/gitlab \</span><br><span class="line">  -e <span class="string">"TZ=Asia/Taipei"</span> \</span><br><span class="line">  gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure>
 
 <p>/etc/gitlab/gitlab.rb </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gitlab_rails[<span class="string">'smtp_enable'</span>] = <span class="literal">true</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_address'</span>] = <span class="string">"xxx.xxx.com.tw"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_port'</span>] = 25</span><br><span class="line">gitlab_rails[<span class="string">'smtp_user_name'</span>] = <span class="string">"xxx"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_password'</span>] = <span class="string">"xxx.xxx.xxx"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_domain'</span>] = <span class="string">"xxx.com.tw"</span></span><br></pre></td></tr></table></figure>
@@ -331,13 +341,13 @@
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Notify.test_email(<span class="string">"z01190@lawbroker.com.tw"</span>, <span class="string">"Title"</span>, <span class="string">"Message"</span>).deliver_now</span><br></pre></td></tr></table></figure>
 
-<h1 id="幫Docker增加DNS"><a href="#幫Docker增加DNS" class="headerlink" title="幫Docker增加DNS"></a>幫Docker增加DNS</h1><p>在主機（不是 Docker 內部），建立一個「/etc/docker/daemon.json」檔案，在裡面寫入</p>
+<h2 id="幫Docker增加DNS"><a href="#幫Docker增加DNS" class="headerlink" title="幫Docker增加DNS"></a>幫Docker增加DNS</h2><p>在主機（不是 Docker 內部），建立一個「/etc/docker/daemon.json」檔案，在裡面寫入</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"dns"</span>: [<span class="string">"1.1.1.1"</span>, <span class="string">"8.8.8.8"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>重啟Docker</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart gitlab</span><br></pre></td></tr></table></figure>
 
-<h1 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h1><ol>
+<h2 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h2><ol>
 <li><a href="https://docs.gitlab.com/omnibus/docker/" target="_blank" rel="noopener">官方: GitLab Docker images</a></li>
 <li><a href="https://docs.gitlab.com/omnibus/settings/smtp.html" target="_blank" rel="noopener">官方: SMTP settings</a></li>
 <li><a href="https://kheresy.wordpress.com/2019/01/25/gitlab-docker-smtp-server/" target="_blank" rel="noopener">Gitlab Docker 的 SMTP 設定</a></li>
@@ -523,7 +533,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#幫Docker增加DNS"><span class="nav-number">1.</span> <span class="nav-text">幫Docker增加DNS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#參考文件"><span class="nav-number">2.</span> <span class="nav-text">參考文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安裝Gitlab"><span class="nav-number">1.</span> <span class="nav-text">安裝Gitlab</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#幫Docker增加DNS"><span class="nav-number">2.</span> <span class="nav-text">幫Docker增加DNS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#參考文件"><span class="nav-number">3.</span> <span class="nav-text">參考文件</span></a></li></ol></div>
             
 
           </div>

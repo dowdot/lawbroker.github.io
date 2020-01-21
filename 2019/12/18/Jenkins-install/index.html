@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="豆豆的學習筆記">
 <meta property="og:description" content="安裝Docker1234$yum install -y yum-utils device-mapper-persistent-data lvm2$yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo$yum update$yum install docker-ce  確定Docke">
 <meta property="og:locale" content="zh-Hant-TW">
-<meta property="og:updated_time" content="2020-01-21T07:15:31.543Z">
+<meta property="og:updated_time" content="2020-01-21T08:34:16.827Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jenkins 用Docker簡易安裝篇">
 <meta name="twitter:description" content="安裝Docker1234$yum install -y yum-utils device-mapper-persistent-data lvm2$yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo$yum update$yum install docker-ce  確定Docke">
@@ -322,14 +322,14 @@
       
 
       
-        <h1 id="安裝Docker"><a href="#安裝Docker" class="headerlink" title="安裝Docker"></a>安裝Docker</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$yum</span> install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line"><span class="variable">$yum</span>-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"><span class="variable">$yum</span> update</span><br><span class="line"><span class="variable">$yum</span> install docker-ce</span><br></pre></td></tr></table></figure>
+        <h2 id="安裝Docker"><a href="#安裝Docker" class="headerlink" title="安裝Docker"></a>安裝Docker</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$yum</span> install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line"><span class="variable">$yum</span>-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"><span class="variable">$yum</span> update</span><br><span class="line"><span class="variable">$yum</span> install docker-ce</span><br></pre></td></tr></table></figure>
 
-<h1 id="確定Docker版本"><a href="#確定Docker版本" class="headerlink" title="確定Docker版本"></a>確定Docker版本</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker version</span><br></pre></td></tr></table></figure>
+<h2 id="確定Docker版本"><a href="#確定Docker版本" class="headerlink" title="確定Docker版本"></a>確定Docker版本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker version</span><br></pre></td></tr></table></figure>
 
-<h1 id="啟動docker"><a href="#啟動docker" class="headerlink" title="啟動docker"></a>啟動docker</h1><p>將docker 設定為開機執行，並啟動Docker服務</p>
+<h2 id="啟動docker"><a href="#啟動docker" class="headerlink" title="啟動docker"></a>啟動docker</h2><p>將docker 設定為開機執行，並啟動Docker服務</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$systemctl</span> <span class="built_in">enable</span> docker</span><br><span class="line"><span class="variable">$systemctl</span> start docker</span><br></pre></td></tr></table></figure>
 
-<h1 id="安裝Jenkins"><a href="#安裝Jenkins" class="headerlink" title="安裝Jenkins"></a>安裝Jenkins</h1><p>從Docker Hub 下載jenkins image </p>
+<h2 id="安裝Jenkins"><a href="#安裝Jenkins" class="headerlink" title="安裝Jenkins"></a>安裝Jenkins</h2><p>從Docker Hub 下載jenkins image </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull jenkins/jenkins</span><br></pre></td></tr></table></figure>
 
 <ol>
@@ -341,7 +341,7 @@
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -u root -d -p 8080:8080 -p 50000:50000 --name jenkins \</span><br><span class="line">-v /u01/jenkins-data:/var/jenkins_home \</span><br><span class="line">--add-host=gitlab1190.lawbroker.com.tw:192.97.140.20 \</span><br><span class="line">-e <span class="string">"TZ=Asia/Taipei"</span> \</span><br><span class="line">--name jenkins \</span><br><span class="line">jenkins/jenkins</span><br></pre></td></tr></table></figure>
 
-<h1 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h1><ol>
+<h2 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h2><ol>
 <li><a href="https://jenkins.io/zh/doc/book/installing/#%E5%AE%89%E8%A3%85jenkins" target="_blank" rel="noopener">官方: 安装Jenkins</a></li>
 </ol>
 
@@ -524,7 +524,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安裝Docker"><span class="nav-number">1.</span> <span class="nav-text">安裝Docker</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#確定Docker版本"><span class="nav-number">2.</span> <span class="nav-text">確定Docker版本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#啟動docker"><span class="nav-number">3.</span> <span class="nav-text">啟動docker</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安裝Jenkins"><span class="nav-number">4.</span> <span class="nav-text">安裝Jenkins</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#參考文件"><span class="nav-number">5.</span> <span class="nav-text">參考文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安裝Docker"><span class="nav-number">1.</span> <span class="nav-text">安裝Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#確定Docker版本"><span class="nav-number">2.</span> <span class="nav-text">確定Docker版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#啟動docker"><span class="nav-number">3.</span> <span class="nav-text">啟動docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安裝Jenkins"><span class="nav-number">4.</span> <span class="nav-text">安裝Jenkins</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#參考文件"><span class="nav-number">5.</span> <span class="nav-text">參考文件</span></a></li></ol></div>
             
 
           </div>

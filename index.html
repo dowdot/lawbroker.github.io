@@ -322,10 +322,10 @@
       
         
           
-            <h1 id="從Docker-Hub-下載執行"><a href="#從Docker-Hub-下載執行" class="headerlink" title="從Docker Hub 下載執行"></a>從Docker Hub 下載執行</h1><h2 id="基礎跑法"><a href="#基礎跑法" class="headerlink" title="基礎跑法"></a>基礎跑法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d --name sonarqube -p 9000:9000 sonarqube</span><br></pre></td></tr></table></figure>
+            <h2 id="從Docker-Hub-下載執行"><a href="#從Docker-Hub-下載執行" class="headerlink" title="從Docker Hub 下載執行"></a>從Docker Hub 下載執行</h2><h3 id="基礎跑法"><a href="#基礎跑法" class="headerlink" title="基礎跑法"></a>基礎跑法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d --name sonarqube -p 9000:9000 sonarqube</span><br></pre></td></tr></table></figure>
 
 <p>預設 帳號: admin 密碼: admin</p>
-<h2 id="進階跑法"><a href="#進階跑法" class="headerlink" title="進階跑法"></a>進階跑法</h2><ol>
+<h3 id="進階跑法"><a href="#進階跑法" class="headerlink" title="進階跑法"></a>進階跑法</h3><ol>
 <li>mapping 相關的port</li>
 <li>幫Container取名為sonarqube</li>
 <li>mapping 內外部的資料夾</li>
@@ -474,7 +474,17 @@
       
         
           
-            <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker run --detach \</span><br><span class="line">  --hostname gitlab1190.lawbroker.com.tw \</span><br><span class="line">  --publish 443:443 --publish 80:80 --publish 22:22 \</span><br><span class="line">  --name gitlab \</span><br><span class="line">  --restart always \</span><br><span class="line">  --volume /u01/gitlab/config:/etc/gitlab \</span><br><span class="line">  --volume /u01/gitlab/logs:/var/<span class="built_in">log</span>/gitlab \</span><br><span class="line">  --volume /u01/gitlab/data:/var/opt/gitlab \</span><br><span class="line">  -e <span class="string">"TZ=Asia/Taipei"</span> \</span><br><span class="line">  gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure>
+            <h2 id="安裝Gitlab"><a href="#安裝Gitlab" class="headerlink" title="安裝Gitlab"></a>安裝Gitlab</h2><p>從Docker Hub 將 Gitlab Run 起來</p>
+<ol>
+<li>設定Gitlab的hostname</li>
+<li>mapping 相關的port</li>
+<li>因為Jenkins會用 ssh key 與 Gitlab 進行驗證, 所以gitlab的SSH設定成正規的22 PORT, 比較不會找自己麻煩</li>
+<li>幫Container取名為gitlab</li>
+<li>設定為永遠啟用,就算死掉了也會自己跑起來(可不設)</li>
+<li>mapping 內外部的資料夾</li>
+<li>指定gitlab的OS時區</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker run --detach \</span><br><span class="line">  --hostname gitlab1190.lawbroker.com.tw \</span><br><span class="line">  --publish 443:443 --publish 80:80 --publish 22:22 \</span><br><span class="line">  --name gitlab \</span><br><span class="line">  --restart always \</span><br><span class="line">  --volume /u01/gitlab/config:/etc/gitlab \</span><br><span class="line">  --volume /u01/gitlab/logs:/var/<span class="built_in">log</span>/gitlab \</span><br><span class="line">  --volume /u01/gitlab/data:/var/opt/gitlab \</span><br><span class="line">  -e <span class="string">"TZ=Asia/Taipei"</span> \</span><br><span class="line">  gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure>
 
 <p>/etc/gitlab/gitlab.rb </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gitlab_rails[<span class="string">'smtp_enable'</span>] = <span class="literal">true</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_address'</span>] = <span class="string">"xxx.xxx.com.tw"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_port'</span>] = 25</span><br><span class="line">gitlab_rails[<span class="string">'smtp_user_name'</span>] = <span class="string">"xxx"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_password'</span>] = <span class="string">"xxx.xxx.xxx"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_domain'</span>] = <span class="string">"xxx.com.tw"</span></span><br></pre></td></tr></table></figure>
@@ -483,13 +493,13 @@
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Notify.test_email(<span class="string">"z01190@lawbroker.com.tw"</span>, <span class="string">"Title"</span>, <span class="string">"Message"</span>).deliver_now</span><br></pre></td></tr></table></figure>
 
-<h1 id="幫Docker增加DNS"><a href="#幫Docker增加DNS" class="headerlink" title="幫Docker增加DNS"></a>幫Docker增加DNS</h1><p>在主機（不是 Docker 內部），建立一個「/etc/docker/daemon.json」檔案，在裡面寫入</p>
+<h2 id="幫Docker增加DNS"><a href="#幫Docker增加DNS" class="headerlink" title="幫Docker增加DNS"></a>幫Docker增加DNS</h2><p>在主機（不是 Docker 內部），建立一個「/etc/docker/daemon.json」檔案，在裡面寫入</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"dns"</span>: [<span class="string">"1.1.1.1"</span>, <span class="string">"8.8.8.8"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>重啟Docker</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart gitlab</span><br></pre></td></tr></table></figure>
 
-<h1 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h1><ol>
+<h2 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h2><ol>
 <li><a href="https://docs.gitlab.com/omnibus/docker/" target="_blank" rel="noopener">官方: GitLab Docker images</a></li>
 <li><a href="https://docs.gitlab.com/omnibus/settings/smtp.html" target="_blank" rel="noopener">官方: SMTP settings</a></li>
 <li><a href="https://kheresy.wordpress.com/2019/01/25/gitlab-docker-smtp-server/" target="_blank" rel="noopener">Gitlab Docker 的 SMTP 設定</a></li>
@@ -636,14 +646,14 @@
       
         
           
-            <h1 id="安裝Docker"><a href="#安裝Docker" class="headerlink" title="安裝Docker"></a>安裝Docker</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$yum</span> install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line"><span class="variable">$yum</span>-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"><span class="variable">$yum</span> update</span><br><span class="line"><span class="variable">$yum</span> install docker-ce</span><br></pre></td></tr></table></figure>
+            <h2 id="安裝Docker"><a href="#安裝Docker" class="headerlink" title="安裝Docker"></a>安裝Docker</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$yum</span> install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line"><span class="variable">$yum</span>-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"><span class="variable">$yum</span> update</span><br><span class="line"><span class="variable">$yum</span> install docker-ce</span><br></pre></td></tr></table></figure>
 
-<h1 id="確定Docker版本"><a href="#確定Docker版本" class="headerlink" title="確定Docker版本"></a>確定Docker版本</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker version</span><br></pre></td></tr></table></figure>
+<h2 id="確定Docker版本"><a href="#確定Docker版本" class="headerlink" title="確定Docker版本"></a>確定Docker版本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker version</span><br></pre></td></tr></table></figure>
 
-<h1 id="啟動docker"><a href="#啟動docker" class="headerlink" title="啟動docker"></a>啟動docker</h1><p>將docker 設定為開機執行，並啟動Docker服務</p>
+<h2 id="啟動docker"><a href="#啟動docker" class="headerlink" title="啟動docker"></a>啟動docker</h2><p>將docker 設定為開機執行，並啟動Docker服務</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$systemctl</span> <span class="built_in">enable</span> docker</span><br><span class="line"><span class="variable">$systemctl</span> start docker</span><br></pre></td></tr></table></figure>
 
-<h1 id="安裝Jenkins"><a href="#安裝Jenkins" class="headerlink" title="安裝Jenkins"></a>安裝Jenkins</h1><p>從Docker Hub 下載jenkins image </p>
+<h2 id="安裝Jenkins"><a href="#安裝Jenkins" class="headerlink" title="安裝Jenkins"></a>安裝Jenkins</h2><p>從Docker Hub 下載jenkins image </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull jenkins/jenkins</span><br></pre></td></tr></table></figure>
 
 <ol>
@@ -655,7 +665,7 @@
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -u root -d -p 8080:8080 -p 50000:50000 --name jenkins \</span><br><span class="line">-v /u01/jenkins-data:/var/jenkins_home \</span><br><span class="line">--add-host=gitlab1190.lawbroker.com.tw:192.97.140.20 \</span><br><span class="line">-e <span class="string">"TZ=Asia/Taipei"</span> \</span><br><span class="line">--name jenkins \</span><br><span class="line">jenkins/jenkins</span><br></pre></td></tr></table></figure>
 
-<h1 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h1><ol>
+<h2 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h2><ol>
 <li><a href="https://jenkins.io/zh/doc/book/installing/#%E5%AE%89%E8%A3%85jenkins" target="_blank" rel="noopener">官方: 安装Jenkins</a></li>
 </ol>
 
@@ -799,9 +809,9 @@
       
         
           
-            <h1 id="在安裝之前"><a href="#在安裝之前" class="headerlink" title="在安裝之前"></a>在安裝之前</h1><p>因為JBoss EAP好像是要錢的,所以官方抓不到別人build好的image,所以只好自己build一個</p>
-<h1 id="下載JBoss"><a href="#下載JBoss" class="headerlink" title="下載JBoss"></a>下載JBoss</h1><p><a href="https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=appplatform&downloadType=patches" target="_blank" rel="noopener">JBoss EAP Software Downloads.</a></p>
-<h1 id="編輯Dockerfile"><a href="#編輯Dockerfile" class="headerlink" title="編輯Dockerfile"></a>編輯Dockerfile</h1><p>產生一個空白的Dockerfile檔案</p>
+            <h2 id="在安裝之前"><a href="#在安裝之前" class="headerlink" title="在安裝之前"></a>在安裝之前</h2><p>因為JBoss EAP好像是要錢的,所以官方抓不到別人build好的image,所以只好自己build一個</p>
+<h2 id="下載JBoss"><a href="#下載JBoss" class="headerlink" title="下載JBoss"></a>下載JBoss</h2><p><a href="https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=appplatform&downloadType=patches" target="_blank" rel="noopener">JBoss EAP Software Downloads.</a></p>
+<h2 id="編輯Dockerfile"><a href="#編輯Dockerfile" class="headerlink" title="編輯Dockerfile"></a>編輯Dockerfile</h2><p>產生一個空白的Dockerfile檔案</p>
 <p>因為官方下載的zip檔,unzip後的目錄為 jboss-eap-7.1,與原本的壓縮檔檔名不同, 所以dockerfile要特別處理一下。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv /opt/jboss/jboss-eap-7.1 /opt/jboss/jboss-eap-7.1.0 \</span><br></pre></td></tr></table></figure>
 
@@ -809,13 +819,13 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Use latest jboss/base-jdk:8 image as the base</span></span><br><span class="line">FROM jboss/base-jdk:8</span><br><span class="line"></span><br><span class="line"><span class="comment"># Sets the Author field of the generated images</span></span><br><span class="line">LABEL maintainer=<span class="string">"xxx@xxx.xxx.xxx"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set the JBOSS_VERSION env variable</span></span><br><span class="line">ENV JBOSS_VERSION 7.1.0</span><br><span class="line">ENV JBOSS_HOME /opt/jboss/jboss-eap-<span class="variable">$JBOSS_VERSION</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Checkout user to root</span></span><br><span class="line">USER root</span><br><span class="line"></span><br><span class="line"><span class="comment"># Copy jboss zip file from local to container </span></span><br><span class="line">COPY jboss-eap-<span class="variable">$JBOSS_VERSION</span>.zip /opt/jboss</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add the JBoss distribution to /opt, and make jboss the owner of the extracted tar content</span></span><br><span class="line"><span class="comment"># Make sure the distribution is available from a well-known place</span></span><br><span class="line">RUN <span class="built_in">cd</span> /opt/jboss \</span><br><span class="line">    &amp;&amp; unzip jboss-eap-<span class="variable">$JBOSS_VERSION</span>.zip \</span><br><span class="line">    &amp;&amp; rm jboss-eap-<span class="variable">$JBOSS_VERSION</span>.zip \</span><br><span class="line">    &amp;&amp; chown -R jboss:0 <span class="variable">$&#123;JBOSS_HOME&#125;</span> \</span><br><span class="line">    &amp;&amp; chmod -R g+rw <span class="variable">$&#123;JBOSS_HOME&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Ensure signals are forwarded to the JVM process correctly for graceful shutdown</span></span><br><span class="line">ENV LAUNCH_JBOSS_IN_BACKGROUND <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Checkout user to jboss</span></span><br><span class="line">USER jboss</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add a user in administration realm</span></span><br><span class="line">RUN <span class="variable">$&#123;JBOSS_HOME&#125;</span>/bin/add-user.sh admin Admin<span class="comment">#007 --silent</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Expose the ports we're interested in</span></span><br><span class="line">EXPOSE 8080 9990</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set the default command to run on boot</span></span><br><span class="line"><span class="comment"># This will boot JBoss EAP in the standalone mode and bind to all interface</span></span><br><span class="line">CMD <span class="variable">$&#123;JBOSS_HOME&#125;</span>/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0</span><br></pre></td></tr></table></figure>
 
 <p>註: 帳號:admin 密碼:Admin#007<br>(可以自己改過)</p>
-<h1 id="Build-docker-image"><a href="#Build-docker-image" class="headerlink" title="Build docker image"></a>Build docker image</h1><p>在Dockerfile的同一層目錄下執行:</p>
+<h2 id="Build-docker-image"><a href="#Build-docker-image" class="headerlink" title="Build docker image"></a>Build docker image</h2><p>在Dockerfile的同一層目錄下執行:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t dowdot/jboss:7.1.0 .</span><br></pre></td></tr></table></figure>
 
 <p>build完成後可以用確認一下,是否有dowdot/jboss這個image</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$docker</span> images</span><br></pre></td></tr></table></figure>
 
-<h1 id="執行jboss"><a href="#執行jboss" class="headerlink" title="執行jboss"></a>執行jboss</h1><ol>
+<h2 id="執行jboss"><a href="#執行jboss" class="headerlink" title="執行jboss"></a>執行jboss</h2><ol>
 <li>mapping 相關的port</li>
 <li>幫Container取名為jboss</li>
 <li>mapping 內外部的資料夾</li>
