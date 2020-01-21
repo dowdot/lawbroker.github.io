@@ -9,14 +9,14 @@
   <title>Jenkins 用Docker簡易安裝篇 | 豆豆的學習筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="安裝Docker1234$yum install -y yum-utils device-mapper-persistent-data lvm2$yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo$yum update$yum install docker-ce  確定Docke">
-<meta name="keywords" content="CentOS,Jenkins,Docker">
+<meta name="keywords" content="CentOS,Docker,Jenkins">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jenkins 用Docker簡易安裝篇">
 <meta property="og:url" content="http://192.97.140.104/2019/12/18/Jenkins-install/index.html">
 <meta property="og:site_name" content="豆豆的學習筆記">
 <meta property="og:description" content="安裝Docker1234$yum install -y yum-utils device-mapper-persistent-data lvm2$yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo$yum update$yum install docker-ce  確定Docke">
 <meta property="og:locale" content="zh-Hant-TW">
-<meta property="og:updated_time" content="2020-01-08T09:19:43.663Z">
+<meta property="og:updated_time" content="2020-01-21T07:15:31.543Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jenkins 用Docker簡易安裝篇">
 <meta name="twitter:description" content="安裝Docker1234$yum install -y yum-utils device-mapper-persistent-data lvm2$yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo$yum update$yum install docker-ce  確定Docke">
@@ -177,11 +177,21 @@
       
         <h1 id="安裝Docker"><a href="#安裝Docker" class="headerlink" title="安裝Docker"></a>安裝Docker</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$yum</span> install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line"><span class="variable">$yum</span>-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"><span class="variable">$yum</span> update</span><br><span class="line"><span class="variable">$yum</span> install docker-ce</span><br></pre></td></tr></table></figure>
 
-<p>確定Docker版本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line"><span class="variable">$systemctl</span> <span class="built_in">enable</span> docker</span><br><span class="line"><span class="variable">$systemctl</span> start docker</span><br></pre></td></tr></table></figure>
+<h1 id="確定Docker版本"><a href="#確定Docker版本" class="headerlink" title="確定Docker版本"></a>確定Docker版本</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker version</span><br></pre></td></tr></table></figure>
 
-<h1 id="安裝Jenkins"><a href="#安裝Jenkins" class="headerlink" title="安裝Jenkins"></a>安裝Jenkins</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull jenkins/jenkins</span><br></pre></td></tr></table></figure>
+<h1 id="啟動docker"><a href="#啟動docker" class="headerlink" title="啟動docker"></a>啟動docker</h1><p>將docker 設定為開機執行，並啟動Docker服務</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$systemctl</span> <span class="built_in">enable</span> docker</span><br><span class="line"><span class="variable">$systemctl</span> start docker</span><br></pre></td></tr></table></figure>
 
+<h1 id="安裝Jenkins"><a href="#安裝Jenkins" class="headerlink" title="安裝Jenkins"></a>安裝Jenkins</h1><p>從Docker Hub 下載jenkins image </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull jenkins/jenkins</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>從Docker images 將 jenkins跑起來 (請依據底層 OS的目錄結構，調整啟動的參數)</li>
+<li>mapping 內外部的資料夾</li>
+<li>指定一筆DNS mapping自己的IP去騙系統</li>
+<li>指定jenkins 的OS時區</li>
+<li>幫container設定取一個名字</li>
+</ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -u root -d -p 8080:8080 -p 50000:50000 --name jenkins \</span><br><span class="line">-v /u01/jenkins-data:/var/jenkins_home \</span><br><span class="line">--add-host=gitlab1190.lawbroker.com.tw:192.97.140.20 \</span><br><span class="line">-e <span class="string">"TZ=Asia/Taipei"</span> \</span><br><span class="line">--name jenkins \</span><br><span class="line">jenkins/jenkins</span><br></pre></td></tr></table></figure>
 
 <h1 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h1><ol>
@@ -225,11 +235,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Jenkins</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Jenkins</a>
         		</li>
       		
 		</ul>
@@ -310,18 +320,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/12/18/gitlab-install/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/12/18/JBoss-install/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Gitlab 用Docker簡易安裝篇
+          JBoss 用Docker簡易安裝篇
         
       </div>
     </a>
   
   
-    <a href="/2019/12/18/JBoss-install/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">JBoss 用Docker簡易安裝篇</div>
+    <a href="/2019/10/17/CORS/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CORS跨域資源共享</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -463,6 +473,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Putty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Theme</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
@@ -475,14 +493,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Putty</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Theme</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">container</a>
               </li>
              
@@ -491,15 +501,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Google</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Gmail</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">API</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">G Suite</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -523,22 +549,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Google</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Gmail</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">API</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">G Suite</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">EasyRedmine</a>
               </li>
              
@@ -547,7 +557,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Jenkins</a>
+                <a href="javascript:void(0)" class="js-tag color2">Gitlab</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -555,7 +565,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Gitlab</a>
+                <a href="javascript:void(0)" class="js-tag color5">SonarQube</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -563,7 +573,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SonarQube</a>
+                <a href="javascript:void(0)" class="js-tag color3">Jenkins</a>
               </li>
             
             <div class="clearfix"></div>

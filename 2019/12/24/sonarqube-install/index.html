@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://192.97.140.104">
   <title>SonarQube 用Docker簡易安裝篇 | 豆豆的學習筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="從Docker Hub 下載執行基礎跑法1$ docker run -d --name sonarqube -p 9000:9000 sonarqube  預設 帳號: admin 密碼: admin 進階跑法123456789$ docker run --rm \  -p 9000:9000 \  -v /u01/sonarqube/sonarqube_conf:/opt/sonarqube/c">
+  <meta name="description" content="從Docker Hub 下載執行基礎跑法1$ docker run -d --name sonarqube -p 9000:9000 sonarqube  預設 帳號: admin 密碼: admin 進階跑法 mapping 相關的port 幫Container取名為sonarqube mapping 內外部的資料夾 指定sonarqube的OS時區  123456789$ docker run">
 <meta name="keywords" content="CentOS,Docker,SonarQube">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SonarQube 用Docker簡易安裝篇">
 <meta property="og:url" content="http://192.97.140.104/2019/12/24/sonarqube-install/index.html">
 <meta property="og:site_name" content="豆豆的學習筆記">
-<meta property="og:description" content="從Docker Hub 下載執行基礎跑法1$ docker run -d --name sonarqube -p 9000:9000 sonarqube  預設 帳號: admin 密碼: admin 進階跑法123456789$ docker run --rm \  -p 9000:9000 \  -v /u01/sonarqube/sonarqube_conf:/opt/sonarqube/c">
+<meta property="og:description" content="從Docker Hub 下載執行基礎跑法1$ docker run -d --name sonarqube -p 9000:9000 sonarqube  預設 帳號: admin 密碼: admin 進階跑法 mapping 相關的port 幫Container取名為sonarqube mapping 內外部的資料夾 指定sonarqube的OS時區  123456789$ docker run">
 <meta property="og:locale" content="zh-Hant-TW">
-<meta property="og:updated_time" content="2020-01-08T09:24:43.214Z">
+<meta property="og:updated_time" content="2020-01-21T07:22:59.270Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SonarQube 用Docker簡易安裝篇">
-<meta name="twitter:description" content="從Docker Hub 下載執行基礎跑法1$ docker run -d --name sonarqube -p 9000:9000 sonarqube  預設 帳號: admin 密碼: admin 進階跑法123456789$ docker run --rm \  -p 9000:9000 \  -v /u01/sonarqube/sonarqube_conf:/opt/sonarqube/c">
+<meta name="twitter:description" content="從Docker Hub 下載執行基礎跑法1$ docker run -d --name sonarqube -p 9000:9000 sonarqube  預設 帳號: admin 密碼: admin 進階跑法 mapping 相關的port 幫Container取名為sonarqube mapping 內外部的資料夾 指定sonarqube的OS時區  123456789$ docker run">
   
     <link rel="alternative" href="/atom.xml" title="豆豆的學習筆記" type="application/atom+xml">
   
@@ -178,7 +178,13 @@
         <h1 id="從Docker-Hub-下載執行"><a href="#從Docker-Hub-下載執行" class="headerlink" title="從Docker Hub 下載執行"></a>從Docker Hub 下載執行</h1><h2 id="基礎跑法"><a href="#基礎跑法" class="headerlink" title="基礎跑法"></a>基礎跑法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d --name sonarqube -p 9000:9000 sonarqube</span><br></pre></td></tr></table></figure>
 
 <p>預設 帳號: admin 密碼: admin</p>
-<h2 id="進階跑法"><a href="#進階跑法" class="headerlink" title="進階跑法"></a>進階跑法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --rm \</span><br><span class="line">  -p 9000:9000 \</span><br><span class="line">  -v /u01/sonarqube/sonarqube_conf:/opt/sonarqube/conf \</span><br><span class="line">  -v /u01/sonarqube/sonarqube_extensions:/opt/sonarqube/extensions \</span><br><span class="line">  -v /u01/sonarqube/sonarqube_logs:/opt/sonarqube/logs \</span><br><span class="line">  -v /u01/sonarqube/sonarqube_data:/opt/sonarqube/data \</span><br><span class="line">  -e <span class="string">"TZ=Asia/Taipei"</span> \</span><br><span class="line">  --name sonarqube \</span><br><span class="line">  sonarqube</span><br></pre></td></tr></table></figure>
+<h2 id="進階跑法"><a href="#進階跑法" class="headerlink" title="進階跑法"></a>進階跑法</h2><ol>
+<li>mapping 相關的port</li>
+<li>幫Container取名為sonarqube</li>
+<li>mapping 內外部的資料夾</li>
+<li>指定sonarqube的OS時區</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --rm \</span><br><span class="line">  -p 9000:9000 \</span><br><span class="line">  -v /u01/sonarqube/sonarqube_conf:/opt/sonarqube/conf \</span><br><span class="line">  -v /u01/sonarqube/sonarqube_extensions:/opt/sonarqube/extensions \</span><br><span class="line">  -v /u01/sonarqube/sonarqube_logs:/opt/sonarqube/logs \</span><br><span class="line">  -v /u01/sonarqube/sonarqube_data:/opt/sonarqube/data \</span><br><span class="line">  -e <span class="string">"TZ=Asia/Taipei"</span> \</span><br><span class="line">  --name sonarqube \</span><br><span class="line">  sonarqube</span><br></pre></td></tr></table></figure>
 
 
       
@@ -447,6 +453,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Putty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Theme</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
@@ -459,14 +473,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Putty</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Theme</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">container</a>
               </li>
              
@@ -475,15 +481,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Google</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Gmail</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">API</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">G Suite</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -507,22 +529,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Google</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Gmail</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">API</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">G Suite</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">EasyRedmine</a>
               </li>
              
@@ -531,7 +537,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Jenkins</a>
+                <a href="javascript:void(0)" class="js-tag color2">Gitlab</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -539,7 +545,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Gitlab</a>
+                <a href="javascript:void(0)" class="js-tag color5">SonarQube</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -547,7 +553,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SonarQube</a>
+                <a href="javascript:void(0)" class="js-tag color3">Jenkins</a>
               </li>
             
             <div class="clearfix"></div>

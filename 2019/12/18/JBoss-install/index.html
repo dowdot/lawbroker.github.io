@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://192.97.140.104">
   <title>JBoss 用Docker簡易安裝篇 | 豆豆的學習筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="下載JBossJBoss EAP Software Downloads. 編輯Dockerfile因為官方下載的zip檔,unzip後的目錄為 jboss-eap-7.1,與原本的壓縮檔檔名不同, 所以dockerfile要特別處理一下。 1mv /opt/jboss/jboss-eap-7.1 /opt/jboss/jboss-eap-7.1.0 \  完整內容如下: 1234567891011">
+  <meta name="description" content="在安裝之前因為JBoss EAP好像是要錢的,所以官方抓不到別人build好的image,所以只好自己build一個 下載JBossJBoss EAP Software Downloads. 編輯Dockerfile產生一個空白的Dockerfile檔案 因為官方下載的zip檔,unzip後的目錄為 jboss-eap-7.1,與原本的壓縮檔檔名不同, 所以dockerfile要特別處理一下。 1">
 <meta name="keywords" content="CentOS,Docker,JBoss">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JBoss 用Docker簡易安裝篇">
 <meta property="og:url" content="http://192.97.140.104/2019/12/18/JBoss-install/index.html">
 <meta property="og:site_name" content="豆豆的學習筆記">
-<meta property="og:description" content="下載JBossJBoss EAP Software Downloads. 編輯Dockerfile因為官方下載的zip檔,unzip後的目錄為 jboss-eap-7.1,與原本的壓縮檔檔名不同, 所以dockerfile要特別處理一下。 1mv /opt/jboss/jboss-eap-7.1 /opt/jboss/jboss-eap-7.1.0 \  完整內容如下: 1234567891011">
+<meta property="og:description" content="在安裝之前因為JBoss EAP好像是要錢的,所以官方抓不到別人build好的image,所以只好自己build一個 下載JBossJBoss EAP Software Downloads. 編輯Dockerfile產生一個空白的Dockerfile檔案 因為官方下載的zip檔,unzip後的目錄為 jboss-eap-7.1,與原本的壓縮檔檔名不同, 所以dockerfile要特別處理一下。 1">
 <meta property="og:locale" content="zh-Hant-TW">
-<meta property="og:updated_time" content="2020-01-08T09:19:00.079Z">
+<meta property="og:updated_time" content="2020-01-21T07:21:59.984Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JBoss 用Docker簡易安裝篇">
-<meta name="twitter:description" content="下載JBossJBoss EAP Software Downloads. 編輯Dockerfile因為官方下載的zip檔,unzip後的目錄為 jboss-eap-7.1,與原本的壓縮檔檔名不同, 所以dockerfile要特別處理一下。 1mv /opt/jboss/jboss-eap-7.1 /opt/jboss/jboss-eap-7.1.0 \  完整內容如下: 1234567891011">
+<meta name="twitter:description" content="在安裝之前因為JBoss EAP好像是要錢的,所以官方抓不到別人build好的image,所以只好自己build一個 下載JBossJBoss EAP Software Downloads. 編輯Dockerfile產生一個空白的Dockerfile檔案 因為官方下載的zip檔,unzip後的目錄為 jboss-eap-7.1,與原本的壓縮檔檔名不同, 所以dockerfile要特別處理一下。 1">
   
     <link rel="alternative" href="/atom.xml" title="豆豆的學習筆記" type="application/atom+xml">
   
@@ -175,20 +175,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="下載JBoss"><a href="#下載JBoss" class="headerlink" title="下載JBoss"></a>下載JBoss</h1><p><a href="https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=appplatform&downloadType=patches" target="_blank" rel="noopener">JBoss EAP Software Downloads.</a></p>
-<h1 id="編輯Dockerfile"><a href="#編輯Dockerfile" class="headerlink" title="編輯Dockerfile"></a>編輯Dockerfile</h1><p>因為官方下載的zip檔,unzip後的目錄為 jboss-eap-7.1,與原本的壓縮檔檔名不同, 所以dockerfile要特別處理一下。</p>
+        <h1 id="在安裝之前"><a href="#在安裝之前" class="headerlink" title="在安裝之前"></a>在安裝之前</h1><p>因為JBoss EAP好像是要錢的,所以官方抓不到別人build好的image,所以只好自己build一個</p>
+<h1 id="下載JBoss"><a href="#下載JBoss" class="headerlink" title="下載JBoss"></a>下載JBoss</h1><p><a href="https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=appplatform&downloadType=patches" target="_blank" rel="noopener">JBoss EAP Software Downloads.</a></p>
+<h1 id="編輯Dockerfile"><a href="#編輯Dockerfile" class="headerlink" title="編輯Dockerfile"></a>編輯Dockerfile</h1><p>產生一個空白的Dockerfile檔案</p>
+<p>因為官方下載的zip檔,unzip後的目錄為 jboss-eap-7.1,與原本的壓縮檔檔名不同, 所以dockerfile要特別處理一下。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv /opt/jboss/jboss-eap-7.1 /opt/jboss/jboss-eap-7.1.0 \</span><br></pre></td></tr></table></figure>
 
-<p>完整內容如下:</p>
+<p>Dockerfile完整內容如下:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Use latest jboss/base-jdk:8 image as the base</span></span><br><span class="line">FROM jboss/base-jdk:8</span><br><span class="line"></span><br><span class="line"><span class="comment"># Sets the Author field of the generated images</span></span><br><span class="line">LABEL maintainer=<span class="string">"xxx@xxx.xxx.xxx"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set the JBOSS_VERSION env variable</span></span><br><span class="line">ENV JBOSS_VERSION 7.1.0</span><br><span class="line">ENV JBOSS_HOME /opt/jboss/jboss-eap-<span class="variable">$JBOSS_VERSION</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Checkout user to root</span></span><br><span class="line">USER root</span><br><span class="line"></span><br><span class="line"><span class="comment"># Copy jboss zip file from local to container </span></span><br><span class="line">COPY jboss-eap-<span class="variable">$JBOSS_VERSION</span>.zip /opt/jboss</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add the JBoss distribution to /opt, and make jboss the owner of the extracted tar content</span></span><br><span class="line"><span class="comment"># Make sure the distribution is available from a well-known place</span></span><br><span class="line">RUN <span class="built_in">cd</span> /opt/jboss \</span><br><span class="line">    &amp;&amp; unzip jboss-eap-<span class="variable">$JBOSS_VERSION</span>.zip \</span><br><span class="line">    &amp;&amp; rm jboss-eap-<span class="variable">$JBOSS_VERSION</span>.zip \</span><br><span class="line">    &amp;&amp; chown -R jboss:0 <span class="variable">$&#123;JBOSS_HOME&#125;</span> \</span><br><span class="line">    &amp;&amp; chmod -R g+rw <span class="variable">$&#123;JBOSS_HOME&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Ensure signals are forwarded to the JVM process correctly for graceful shutdown</span></span><br><span class="line">ENV LAUNCH_JBOSS_IN_BACKGROUND <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Checkout user to jboss</span></span><br><span class="line">USER jboss</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add a user in administration realm</span></span><br><span class="line">RUN <span class="variable">$&#123;JBOSS_HOME&#125;</span>/bin/add-user.sh admin Admin<span class="comment">#007 --silent</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Expose the ports we're interested in</span></span><br><span class="line">EXPOSE 8080 9990</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set the default command to run on boot</span></span><br><span class="line"><span class="comment"># This will boot JBoss EAP in the standalone mode and bind to all interface</span></span><br><span class="line">CMD <span class="variable">$&#123;JBOSS_HOME&#125;</span>/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0</span><br></pre></td></tr></table></figure>
 
+<p>註: 帳號:admin 密碼:Admin#007<br>(可以自己改過)</p>
 <h1 id="Build-docker-image"><a href="#Build-docker-image" class="headerlink" title="Build docker image"></a>Build docker image</h1><p>在Dockerfile的同一層目錄下執行:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t dowdot/jboss:7.1.0 .</span><br></pre></td></tr></table></figure>
 
 <p>build完成後可以用確認一下,是否有dowdot/jboss這個image</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$docker</span> images</span><br></pre></td></tr></table></figure>
 
-<h1 id="執行jboss"><a href="#執行jboss" class="headerlink" title="執行jboss"></a>執行jboss</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$docker</span> run -u jboss -d -p 8088:8080 -p 9990:9990 \</span><br><span class="line">-v /u01/jboss/deployments:/opt/jboss-eap-7.1.0/standalone/deployments \</span><br><span class="line">-v /u01/jboss/configuration://opt/jboss-eap-7.1.0/standalone/configuration  \</span><br><span class="line">-e <span class="string">"TZ=Asia/Taipei"</span>  \</span><br><span class="line">--name jboss \</span><br><span class="line">dowdot/jboss</span><br></pre></td></tr></table></figure>
+<h1 id="執行jboss"><a href="#執行jboss" class="headerlink" title="執行jboss"></a>執行jboss</h1><ol>
+<li>mapping 相關的port</li>
+<li>幫Container取名為jboss</li>
+<li>mapping 內外部的資料夾</li>
+<li>指定jboss的OS時區</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$docker</span> run -u jboss -d -p 8088:8080 -p 9990:9990 \</span><br><span class="line">-v /u01/jboss/deployments:/opt/jboss-eap-7.1.0/standalone/deployments \</span><br><span class="line">-v /u01/jboss/configuration://opt/jboss-eap-7.1.0/standalone/configuration  \</span><br><span class="line">-e <span class="string">"TZ=Asia/Taipei"</span>  \</span><br><span class="line">--name jboss \</span><br><span class="line">dowdot/jboss</span><br></pre></td></tr></table></figure>
       
 
       
@@ -311,18 +320,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/12/18/Jenkins-install/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/12/18/gitlab-install/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Jenkins 用Docker簡易安裝篇
+          Gitlab 用Docker簡易安裝篇
         
       </div>
     </a>
   
   
-    <a href="/2019/10/17/CORS/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">CORS跨域資源共享</div>
+    <a href="/2019/12/18/Jenkins-install/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Jenkins 用Docker簡易安裝篇</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -464,6 +473,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Putty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Theme</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
@@ -476,14 +493,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Putty</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Theme</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">container</a>
               </li>
              
@@ -492,15 +501,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Google</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Gmail</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">API</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">G Suite</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -524,22 +549,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Google</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Gmail</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">API</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">G Suite</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">EasyRedmine</a>
               </li>
              
@@ -548,7 +557,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Jenkins</a>
+                <a href="javascript:void(0)" class="js-tag color2">Gitlab</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -556,7 +565,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Gitlab</a>
+                <a href="javascript:void(0)" class="js-tag color5">SonarQube</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -564,7 +573,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SonarQube</a>
+                <a href="javascript:void(0)" class="js-tag color3">Jenkins</a>
               </li>
             
             <div class="clearfix"></div>
