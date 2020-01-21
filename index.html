@@ -152,19 +152,438 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-2019-10-17-CORS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-sonarqube-install" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/17/2019-10-17-CORS/">CORS跨域資源共享</a>
+      <a class="article-title" href="/2019/12/24/sonarqube-install/">SonarQube 用Docker簡易安裝篇</a>
     </h1>
   
 
         
-        <a href="/2019/10/17/2019-10-17-CORS/" class="archive-article-date">
+        <a href="/2019/12/24/sonarqube-install/" class="archive-article-date">
+  	<time datetime="2019-12-24T02:13:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="從Docker-Hub-下載執行"><a href="#從Docker-Hub-下載執行" class="headerlink" title="從Docker Hub 下載執行"></a>從Docker Hub 下載執行</h1><h2 id="基礎跑法"><a href="#基礎跑法" class="headerlink" title="基礎跑法"></a>基礎跑法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d --name sonarqube -p 9000:9000 sonarqube</span><br></pre></td></tr></table></figure>
+
+<p>預設 帳號: admin 密碼: admin</p>
+<h2 id="進階跑法"><a href="#進階跑法" class="headerlink" title="進階跑法"></a>進階跑法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --rm \</span><br><span class="line">  -p 9000:9000 \</span><br><span class="line">  -v /u01/sonarqube/sonarqube_conf:/opt/sonarqube/conf \</span><br><span class="line">  -v /u01/sonarqube/sonarqube_extensions:/opt/sonarqube/extensions \</span><br><span class="line">  -v /u01/sonarqube/sonarqube_logs:/opt/sonarqube/logs \</span><br><span class="line">  -v /u01/sonarqube/sonarqube_data:/opt/sonarqube/data \</span><br><span class="line">  -e <span class="string">"TZ=Asia/Taipei"</span> \</span><br><span class="line">  --name sonarqube \</span><br><span class="line">  sonarqube</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">CentOS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SonarQube</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Tools//" class="article-tag-list-link color1">Tools</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/24/sonarqube-install/">展開全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-gitlab-install" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/18/gitlab-install/">Gitlab 用Docker簡易安裝篇</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/18/gitlab-install/" class="archive-article-date">
+  	<time datetime="2019-12-18T08:13:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker run --detach \</span><br><span class="line">  --hostname gitlab1190.lawbroker.com.tw \</span><br><span class="line">  --publish 443:443 --publish 80:80 --publish 22:22 \</span><br><span class="line">  --name gitlab \</span><br><span class="line">  --restart always \</span><br><span class="line">  --volume /u01/gitlab/config:/etc/gitlab \</span><br><span class="line">  --volume /u01/gitlab/logs:/var/<span class="built_in">log</span>/gitlab \</span><br><span class="line">  --volume /u01/gitlab/data:/var/opt/gitlab \</span><br><span class="line">  -e <span class="string">"TZ=Asia/Taipei"</span> \</span><br><span class="line">  gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure>
+
+<p>/etc/gitlab/gitlab.rb </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gitlab_rails[<span class="string">'smtp_enable'</span>] = <span class="literal">true</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_address'</span>] = <span class="string">"xxx.xxx.com.tw"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_port'</span>] = 25</span><br><span class="line">gitlab_rails[<span class="string">'smtp_user_name'</span>] = <span class="string">"xxx"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_password'</span>] = <span class="string">"xxx.xxx.xxx"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_domain'</span>] = <span class="string">"xxx.com.tw"</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Notify.test_email(<span class="string">"z01190@lawbroker.com.tw"</span>, <span class="string">"Title"</span>, <span class="string">"Message"</span>).deliver_now</span><br></pre></td></tr></table></figure>
+
+<h1 id="幫Docker增加DNS"><a href="#幫Docker增加DNS" class="headerlink" title="幫Docker增加DNS"></a>幫Docker增加DNS</h1><p>在主機（不是 Docker 內部），建立一個「/etc/docker/daemon.json」檔案，在裡面寫入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"dns"</span>: [<span class="string">"1.1.1.1"</span>, <span class="string">"8.8.8.8"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>重啟Docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart gitlab</span><br></pre></td></tr></table></figure>
+
+<h1 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h1><ol>
+<li><a href="https://docs.gitlab.com/omnibus/docker/" target="_blank" rel="noopener">官方: GitLab Docker images</a></li>
+<li><a href="https://docs.gitlab.com/omnibus/settings/smtp.html" target="_blank" rel="noopener">官方: SMTP settings</a></li>
+<li><a href="https://kheresy.wordpress.com/2019/01/25/gitlab-docker-smtp-server/" target="_blank" rel="noopener">Gitlab Docker 的 SMTP 設定</a></li>
+<li><a href="https://dotblogs.com.tw/echo/2017/10/27/gitlab_smtp_setting" target="_blank" rel="noopener">【GitLab】設定外部 SMTP Server 發送 Email</a></li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">CentOS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Gitlab</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Tools//" class="article-tag-list-link color1">Tools</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/18/gitlab-install/">展開全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Jenkins-install" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/18/Jenkins-install/">Jenkins 用Docker簡易安裝篇</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/18/Jenkins-install/" class="archive-article-date">
+  	<time datetime="2019-12-18T02:13:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="安裝Docker"><a href="#安裝Docker" class="headerlink" title="安裝Docker"></a>安裝Docker</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$yum</span> install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line"><span class="variable">$yum</span>-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"><span class="variable">$yum</span> update</span><br><span class="line"><span class="variable">$yum</span> install docker-ce</span><br></pre></td></tr></table></figure>
+
+<p>確定Docker版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line"><span class="variable">$systemctl</span> <span class="built_in">enable</span> docker</span><br><span class="line"><span class="variable">$systemctl</span> start docker</span><br></pre></td></tr></table></figure>
+
+<h1 id="安裝Jenkins"><a href="#安裝Jenkins" class="headerlink" title="安裝Jenkins"></a>安裝Jenkins</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull jenkins/jenkins</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -u root -d -p 8080:8080 -p 50000:50000 --name jenkins \</span><br><span class="line">-v /u01/jenkins-data:/var/jenkins_home \</span><br><span class="line">--add-host=gitlab1190.lawbroker.com.tw:192.97.140.20 \</span><br><span class="line">-e <span class="string">"TZ=Asia/Taipei"</span> \</span><br><span class="line">--name jenkins \</span><br><span class="line">jenkins/jenkins</span><br></pre></td></tr></table></figure>
+
+<h1 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h1><ol>
+<li><a href="https://jenkins.io/zh/doc/book/installing/#%E5%AE%89%E8%A3%85jenkins" target="_blank" rel="noopener">官方: 安装Jenkins</a></li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">CentOS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Jenkins</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Tools//" class="article-tag-list-link color1">Tools</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/18/Jenkins-install/">展開全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-JBoss-install" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/18/JBoss-install/">JBoss 用Docker簡易安裝篇</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/18/JBoss-install/" class="archive-article-date">
+  	<time datetime="2019-12-18T02:13:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="下載JBoss"><a href="#下載JBoss" class="headerlink" title="下載JBoss"></a>下載JBoss</h1><p><a href="https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=appplatform&downloadType=patches" target="_blank" rel="noopener">JBoss EAP Software Downloads.</a></p>
+<h1 id="編輯Dockerfile"><a href="#編輯Dockerfile" class="headerlink" title="編輯Dockerfile"></a>編輯Dockerfile</h1><p>因為官方下載的zip檔,unzip後的目錄為 jboss-eap-7.1,與原本的壓縮檔檔名不同, 所以dockerfile要特別處理一下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv /opt/jboss/jboss-eap-7.1 /opt/jboss/jboss-eap-7.1.0 \</span><br></pre></td></tr></table></figure>
+
+<p>完整內容如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Use latest jboss/base-jdk:8 image as the base</span></span><br><span class="line">FROM jboss/base-jdk:8</span><br><span class="line"></span><br><span class="line"><span class="comment"># Sets the Author field of the generated images</span></span><br><span class="line">LABEL maintainer=<span class="string">"xxx@xxx.xxx.xxx"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set the JBOSS_VERSION env variable</span></span><br><span class="line">ENV JBOSS_VERSION 7.1.0</span><br><span class="line">ENV JBOSS_HOME /opt/jboss/jboss-eap-<span class="variable">$JBOSS_VERSION</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Checkout user to root</span></span><br><span class="line">USER root</span><br><span class="line"></span><br><span class="line"><span class="comment"># Copy jboss zip file from local to container </span></span><br><span class="line">COPY jboss-eap-<span class="variable">$JBOSS_VERSION</span>.zip /opt/jboss</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add the JBoss distribution to /opt, and make jboss the owner of the extracted tar content</span></span><br><span class="line"><span class="comment"># Make sure the distribution is available from a well-known place</span></span><br><span class="line">RUN <span class="built_in">cd</span> /opt/jboss \</span><br><span class="line">    &amp;&amp; unzip jboss-eap-<span class="variable">$JBOSS_VERSION</span>.zip \</span><br><span class="line">    &amp;&amp; rm jboss-eap-<span class="variable">$JBOSS_VERSION</span>.zip \</span><br><span class="line">    &amp;&amp; chown -R jboss:0 <span class="variable">$&#123;JBOSS_HOME&#125;</span> \</span><br><span class="line">    &amp;&amp; chmod -R g+rw <span class="variable">$&#123;JBOSS_HOME&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Ensure signals are forwarded to the JVM process correctly for graceful shutdown</span></span><br><span class="line">ENV LAUNCH_JBOSS_IN_BACKGROUND <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Checkout user to jboss</span></span><br><span class="line">USER jboss</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add a user in administration realm</span></span><br><span class="line">RUN <span class="variable">$&#123;JBOSS_HOME&#125;</span>/bin/add-user.sh admin Admin<span class="comment">#007 --silent</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Expose the ports we're interested in</span></span><br><span class="line">EXPOSE 8080 9990</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set the default command to run on boot</span></span><br><span class="line"><span class="comment"># This will boot JBoss EAP in the standalone mode and bind to all interface</span></span><br><span class="line">CMD <span class="variable">$&#123;JBOSS_HOME&#125;</span>/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0</span><br></pre></td></tr></table></figure>
+
+<h1 id="Build-docker-image"><a href="#Build-docker-image" class="headerlink" title="Build docker image"></a>Build docker image</h1><p>在Dockerfile的同一層目錄下執行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t dowdot/jboss:7.1.0 .</span><br></pre></td></tr></table></figure>
+
+<p>build完成後可以用確認一下,是否有dowdot/jboss這個image</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$docker</span> images</span><br></pre></td></tr></table></figure>
+
+<h1 id="執行jboss"><a href="#執行jboss" class="headerlink" title="執行jboss"></a>執行jboss</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$docker</span> run -u jboss -d -p 8088:8080 -p 9990:9990 \</span><br><span class="line">-v /u01/jboss/deployments:/opt/jboss-eap-7.1.0/standalone/deployments \</span><br><span class="line">-v /u01/jboss/configuration://opt/jboss-eap-7.1.0/standalone/configuration  \</span><br><span class="line">-e <span class="string">"TZ=Asia/Taipei"</span>  \</span><br><span class="line">--name jboss \</span><br><span class="line">dowdot/jboss</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">CentOS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JBoss</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Tools//" class="article-tag-list-link color1">Tools</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/18/JBoss-install/">展開全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-CORS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/17/CORS/">CORS跨域資源共享</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/17/CORS/" class="archive-article-date">
   	<time datetime="2019-10-17T08:12:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-17</time>
 </a>
         
@@ -232,7 +651,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/17/2019-10-17-CORS/">展開全文 >></a>
+          <a class="article-more-a" href="/2019/10/17/CORS/">展開全文 >></a>
         </p>
       
 
@@ -751,389 +1170,9 @@
 
 
   
-    <article id="post-ElasticSearch簡易資料查詢" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/04/ElasticSearch簡易資料查詢/">ElasticSearch簡易資料查詢</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/04/ElasticSearch簡易資料查詢/" class="archive-article-date">
-  	<time datetime="2019-01-04T01:40:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="查詢所有的index"><a href="#查詢所有的index" class="headerlink" title="查詢所有的index"></a>查詢所有的index</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.97.140.16:9200/_cat/indices?v</span><br></pre></td></tr></table></figure>
-
-<h2 id="Index-所包含的-Type"><a href="#Index-所包含的-Type" class="headerlink" title="Index 所包含的 Type"></a>Index 所包含的 Type</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.97.140.16:9200/jdbc-law99ot-2019.01.04?pretty=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h1><p><a href="http://www.ruanyifeng.com/blog/2017/08/elasticsearch.html" target="_blank" rel="noopener">全文搜索引擎 Elasticsearch 入门教程</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ELK</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ELK//" class="article-tag-list-link color4">ELK</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/04/ElasticSearch簡易資料查詢/">展開全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-安裝logstash-input-jdbc" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/02/安裝logstash-input-jdbc/">安裝logstash-input-jdbc</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/02/安裝logstash-input-jdbc/" class="archive-article-date">
-  	<time datetime="2019-01-02T02:14:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="/images/2019/01/20190102_logstash-input-jdbc_0.png" alt="logstash-input-jdbc"></p>
-<p>因為ELK想要接收Oracle的transaction log，所以想要透由JDBC的方式直接去擷取……那麼就得在logstash上安裝 logstash-input-jdbc!!</p>
-<p>查了一下官方的手冊，logstash-input-jdbc的安裝源放在 <a href="https://github.com/logstash-plugins/logstash-input-jdbc" target="_blank" rel="noopener">github</a>上。這邊要特別注意的是： logstash-input-jdbc 是用ruby寫的，所以安裝前也得先把ruby環境安裝一下!!</p>
-        
-          <a class="article-more-a" href="/2019/01/02/安裝logstash-input-jdbc/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ELK</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ELK//" class="article-tag-list-link color4">ELK</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/02/安裝logstash-input-jdbc/">展開全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Docker上運行Laravel" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/25/Docker上運行Laravel/">Docker上運行Laravel</a>
-    </h1>
-  
-
-        
-        <a href="/2018/12/25/Docker上運行Laravel/" class="archive-article-date">
-  	<time datetime="2018-12-25T07:39:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>因為專案需要，想要有一個PHP + Laravel的測試開發環境~~但是懶惰一點不想大費週張一個一個套件安裝之外，又想接觸新的技術和架構，加上Container夯很多年了!!所以，沒有其它選擇了!!今天就試著在docker上面利用 Laradock 將PHP、nginx、mysql環境跑起來之後再安裝Laravel!!</p>
-<h1 id="安裝-Laradock"><a href="#安裝-Laradock" class="headerlink" title="安裝 Laradock"></a>安裝 Laradock</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /Docker</span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/laradock/laradock.git Laradock</span><br></pre></td></tr></table></figure>
-
-<h1 id="修改-env檔"><a href="#修改-env檔" class="headerlink" title="修改 .env檔"></a>修改 .env檔</h1><p>想要把網頁相關的專案都放在/WWW下，所以修改一下Laradock之下的.env檔，將程式的專案根目錄指向本機OS的/WWW</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> Laradock</span><br><span class="line">$ cp env-example .env</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#APP_CODE_PATH_HOST=../  #這是原始設定</span></span><br><span class="line">APP_CODE_PATH_HOST=/WWW/</span><br></pre></td></tr></table></figure>
-
-<p>這樣容器運行後,容器內部的 /var/www 會連結到外層OS的 /WWW</p>
-        
-          <a class="article-more-a" href="/2018/12/25/Docker上運行Laravel/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">container</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Laravel</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Lab//" class="article-tag-list-link color4">Lab</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/25/Docker上運行Laravel/">展開全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-在Docker環境下安裝Zabbix" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/18/在Docker環境下安裝Zabbix/">在Docker環境下安裝Zabbix</a>
-    </h1>
-  
-
-        
-        <a href="/2018/12/18/在Docker環境下安裝Zabbix/" class="archive-article-date">
-  	<time datetime="2018-12-18T09:14:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="/images/2018/12/20181218_DockerZabbix.png" alt="Alt Docker+Zabbix"></p>
-<p>Zabbix是因為同事使用而得知的，感覺好像相當不賴。上網爬了一下，用的人也不少~~ 可以對系統進行 監控 -&gt; 量測-&gt; 建立回饋機制的好工具。所以，就打算先在docker安裝，先體驗一下功能再說。</p>
-<p>但因為一開始裝到舊版docker的關係，小繞了個圈，所以還是先記起來。免得下次再踩坑!!</p>
-<p>一開始是使用yum install docker的方式將docker安裝起來，後來又安裝了docker compose，沒想到用docker-compose up -d 想將zabbix跑起來時一直發生錯誤。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">332c505442d8: Pull complete</span><br><span class="line">ef94d2ea987f: Pull complete</span><br><span class="line">Creating v349_zabbix-db_1 ... <span class="keyword">done</span></span><br><span class="line">Creating v349_zabbix-server_1 ... error</span><br><span class="line"></span><br><span class="line">ERROR: <span class="keyword">for</span> v349_zabbix-server_1  Cannot start service zabbix-server: b<span class="string">'Cannot link to a non running container: /v349_zabbix-db_1 AS /v349_zabbix-server_1/v349_zabbix-db_1'</span></span><br><span class="line"></span><br><span class="line">ERROR: <span class="keyword">for</span> zabbix-server  Cannot start service zabbix-server: b<span class="string">'Cannot link to a non running container: /v349_zabbix-db_1 AS /v349_zabbix-server_1/v349_zabbix-db_1'</span></span><br><span class="line">ERROR: Encountered errors <span class="keyword">while</span> bringing up the project.</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2018/12/18/在Docker環境下安裝Zabbix/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">container</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">zabbix</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/monitor//" class="article-tag-list-link color3">monitor</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/18/在Docker環境下安裝Zabbix/">展開全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -1145,7 +1184,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 dowdot
+    		&copy; 2020 dowdot
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -1272,6 +1311,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
               </li>
              
@@ -1280,15 +1323,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Laravel</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">NGINX</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Chrome</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VSCode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CORS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1312,15 +1363,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Chrome</a>
+                <a href="javascript:void(0)" class="js-tag color2">CentOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VSCode</a>
+                <a href="javascript:void(0)" class="js-tag color3">Jenkins</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">CORS</a>
+                <a href="javascript:void(0)" class="js-tag color2">Docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Gitlab</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JBoss</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SonarQube</a>
               </li>
             
             <div class="clearfix"></div>
